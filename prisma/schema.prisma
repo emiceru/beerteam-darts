@@ -1,0 +1,397 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            String   @id @default(cuid())
+  email         String   @unique
+  passwordHash  String   @map("password_hash")
+  name          String
+  role          Role     @default(PLAYER)
+  avatarUrl     String?  @map("avatar_url")
+  emailVerified Boolean  @default(false) @map("email_verified")
+  isActive      Boolean  @default(true) @map("is_active")
+  createdAt     DateTime @default(now()) @map("created_at")
+  updatedAt     DateTime @updatedAt @map("updated_at")
+
+  // Relations
+  createdLeagues         League[]              @relation("LeagueCreator")
+  createdCompetitionTypes CompetitionType[]   @relation("CompetitionTypeCreator")
+  participations         LeagueParticipant[]
+  teamAsPlayer1          Team[]               @relation("TeamPlayer1")
+  teamAsPlayer2          Team[]               @relation("TeamPlayer2")
+  createdTeams           Team[]               @relation("TeamCreator")
+  createdMatches         Match[]              @relation("MatchCreator")
+  enteredResults         Match[]              @relation("ResultEnterer")
+  matchResults           MatchResult[]
+  notifications          Notification[]
+  notificationSettings   NotificationSetting?
+  sessions               UserSession[]
+  passwordResetTokens    PasswordResetToken[]
+  createdJoinLinks       JoinLink[]           @relation("JoinLinkCreator")
+  approvedParticipants   LeagueParticipant[]  @relation("ParticipantApprover")
+
+  @@map("users")
+}
+
+model CompetitionType {
+  id                    String  @id @default(cuid())
+  name                  String
+  slug                  String  @unique
+  description           String?
+  rulesDescription      String? @map("rules_description")
+  defaultScoringConfig  Json?   @map("default_scoring_config")
+  isActive              Boolean @default(true) @map("is_active")
+  createdBy             String  @map("created_by")
+  createdAt             DateTime @default(now()) @map("created_at")
+  updatedAt             DateTime @updatedAt @map("updated_at")
+
+  // Relations
+  creator User     @relation("CompetitionTypeCreator", fields: [createdBy], references: [id])
+  leagues League[]
+
+  @@map("competition_types")
+}
+
+model Season {
+  id        String   @id @default(cuid())
+  name      String
+  year      Int
+  startDate DateTime @map("start_date") @db.Date
+  endDate   DateTime @map("end_date") @db.Date
+  isActive  Boolean  @default(true) @map("is_active")
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  // Relations
+  leagues League[]
+
+  @@map("seasons")
+}
+
+model League {
+  id                        String            @id @default(cuid())
+  name                      String
+  slug                      String            @unique
+  description               String?
+  rulesDescription          String            @map("rules_description")
+  seasonId                  String            @map("season_id")
+  competitionTypeId         String            @map("competition_type_id")
+  createdBy                 String            @map("created_by")
+  gameMode                  GameMode          @map("game_mode")
+  tournamentFormat          TournamentFormat  @map("tournament_format")
+  maxParticipants           Int?              @map("max_participants")
+  registrationOpen          Boolean           @default(true) @map("registration_open")
+  autoApproveRegistrations  Boolean           @default(true) @map("auto_approve_registrations")
+  scoringConfig             Json              @map("scoring_config")
+  matchDataConfig           Json              @map("match_data_config")
+  registrationStart         DateTime          @map("registration_start")
+  registrationEnd           DateTime          @map("registration_end")
+  leagueStart               DateTime          @map("league_start") @db.Date
+  leagueEnd                 DateTime          @map("league_end") @db.Date
+  status                    LeagueStatus      @default(DRAFT)
+  isPublic                  Boolean           @default(false) @map("is_public")
+  createdAt                 DateTime          @default(now()) @map("created_at")
+  updatedAt                 DateTime          @updatedAt @map("updated_at")
+
+  // Relations
+  season          Season              @relation(fields: [seasonId], references: [id])
+  competitionType CompetitionType     @relation(fields: [competitionTypeId], references: [id])
+  creator         User                @relation("LeagueCreator", fields: [createdBy], references: [id])
+  participants    LeagueParticipant[]
+  teams           Team[]
+  matches         Match[]
+  standings       Standing[]
+  joinLinks       JoinLink[]
+  notifications   Notification[]
+
+  @@map("leagues")
+}
+
+model JoinLink {
+  id          String    @id @default(cuid())
+  leagueId    String    @map("league_id")
+  code        String    @unique
+  isActive    Boolean   @default(true) @map("is_active")
+  expiresAt   DateTime? @map("expires_at")
+  maxUses     Int?      @map("max_uses")
+  currentUses Int       @default(0) @map("current_uses")
+  createdBy   String    @map("created_by")
+  createdAt   DateTime  @default(now()) @map("created_at")
+  updatedAt   DateTime  @updatedAt @map("updated_at")
+
+  // Relations
+  league              League              @relation(fields: [leagueId], references: [id], onDelete: Cascade)
+  creator             User                @relation("JoinLinkCreator", fields: [createdBy], references: [id])
+  usedByParticipants  LeagueParticipant[]
+
+  @@map("join_links")
+}
+
+model LeagueParticipant {
+  id               String                @id @default(cuid())
+  leagueId         String                @map("league_id")
+  userId           String                @map("user_id")
+  registrationType RegistrationType      @map("registration_type")
+  status           ParticipantStatus     @default(PENDING)
+  joinedViaLink    String?               @map("joined_via_link")
+  registrationData Json?                 @map("registration_data")
+  approvedBy       String?               @map("approved_by")
+  approvedAt       DateTime?             @map("approved_at")
+  createdAt        DateTime              @default(now()) @map("created_at")
+  updatedAt        DateTime              @updatedAt @map("updated_at")
+
+  // Relations
+  league    League    @relation(fields: [leagueId], references: [id], onDelete: Cascade)
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  joinLink  JoinLink? @relation(fields: [joinedViaLink], references: [id])
+  approver  User?     @relation("ParticipantApprover", fields: [approvedBy], references: [id])
+
+  @@unique([leagueId, userId])
+  @@map("league_participants")
+}
+
+model Team {
+  id        String   @id @default(cuid())
+  leagueId  String   @map("league_id")
+  name      String?
+  player1Id String   @map("player1_id")
+  player2Id String?  @map("player2_id")
+  isActive  Boolean  @default(true) @map("is_active")
+  createdBy String   @map("created_by")
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  // Relations
+  league        League        @relation(fields: [leagueId], references: [id], onDelete: Cascade)
+  player1       User          @relation("TeamPlayer1", fields: [player1Id], references: [id])
+  player2       User?         @relation("TeamPlayer2", fields: [player2Id], references: [id])
+  creator       User          @relation("TeamCreator", fields: [createdBy], references: [id])
+  matchesAsTeam1 Match[]      @relation("MatchTeam1")
+  matchesAsTeam2 Match[]      @relation("MatchTeam2")
+  winsAsWinner  Match[]       @relation("MatchWinner")
+  results       MatchResult[]
+  standings     Standing[]
+
+  @@unique([leagueId, player1Id, player2Id])
+  @@map("teams")
+}
+
+model Match {
+  id                String      @id @default(cuid())
+  leagueId          String      @map("league_id")
+  round             Int
+  matchNumber       Int         @map("match_number")
+  team1Id           String      @map("team1_id")
+  team2Id           String      @map("team2_id")
+  scheduledDate     DateTime?   @map("scheduled_date")
+  actualDate        DateTime?   @map("actual_date")
+  status            MatchStatus @default(SCHEDULED)
+  team1Score        Int?        @map("team1_score")
+  team2Score        Int?        @map("team2_score")
+  winnerTeamId      String?     @map("winner_team_id")
+  matchData         Json?       @map("match_data")
+  notes             String?
+  createdBy         String      @map("created_by")
+  resultEnteredBy   String?     @map("result_entered_by")
+  resultEnteredAt   DateTime?   @map("result_entered_at")
+  createdAt         DateTime    @default(now()) @map("created_at")
+  updatedAt         DateTime    @updatedAt @map("updated_at")
+
+  // Relations
+  league        League        @relation(fields: [leagueId], references: [id], onDelete: Cascade)
+  team1         Team          @relation("MatchTeam1", fields: [team1Id], references: [id])
+  team2         Team          @relation("MatchTeam2", fields: [team2Id], references: [id])
+  winnerTeam    Team?         @relation("MatchWinner", fields: [winnerTeamId], references: [id])
+  creator       User          @relation("MatchCreator", fields: [createdBy], references: [id])
+  resultEnterer User?         @relation("ResultEnterer", fields: [resultEnteredBy], references: [id])
+  results       MatchResult[]
+  notifications Notification[]
+
+  @@unique([leagueId, round, matchNumber])
+  @@map("matches")
+}
+
+model MatchResult {
+  id            String   @id @default(cuid())
+  matchId       String   @map("match_id")
+  teamId        String   @map("team_id")
+  playerId      String   @map("player_id")
+  gamesWon      Int      @default(0) @map("games_won")
+  gamesLost     Int      @default(0) @map("games_lost")
+  pointsScored  Int      @default(0) @map("points_scored")
+  pointsAgainst Int      @default(0) @map("points_against")
+  detailedStats Json?    @map("detailed_stats")
+  createdAt     DateTime @default(now()) @map("created_at")
+  updatedAt     DateTime @updatedAt @map("updated_at")
+
+  // Relations
+  match  Match @relation(fields: [matchId], references: [id], onDelete: Cascade)
+  team   Team  @relation(fields: [teamId], references: [id])
+  player User  @relation(fields: [playerId], references: [id])
+
+  @@map("match_results")
+}
+
+model Standing {
+  id              String   @id @default(cuid())
+  leagueId        String   @map("league_id")
+  teamId          String   @map("team_id")
+  position        Int
+  matchesPlayed   Int      @default(0) @map("matches_played")
+  matchesWon      Int      @default(0) @map("matches_won")
+  matchesDrawn    Int      @default(0) @map("matches_drawn")
+  matchesLost     Int      @default(0) @map("matches_lost")
+  points          Int      @default(0)
+  gamesWon        Int      @default(0) @map("games_won")
+  gamesLost       Int      @default(0) @map("games_lost")
+  pointsFor       Int      @default(0) @map("points_for")
+  pointsAgainst   Int      @default(0) @map("points_against")
+  winPercentage   Decimal  @default(0) @map("win_percentage") @db.Decimal(5,2)
+  pointDifference Int      @default(0) @map("point_difference")
+  lastUpdated     DateTime @default(now()) @map("last_updated")
+  updatedAt       DateTime @updatedAt @map("updated_at")
+
+  // Relations
+  league League @relation(fields: [leagueId], references: [id], onDelete: Cascade)
+  team   Team   @relation(fields: [teamId], references: [id], onDelete: Cascade)
+
+  @@unique([leagueId, teamId])
+  @@unique([leagueId, position])
+  @@map("standings")
+}
+
+model NotificationSetting {
+  id                    String   @id @default(cuid())
+  userId                String   @unique @map("user_id")
+  emailMatchReminders   Boolean  @default(true) @map("email_match_reminders")
+  emailResults          Boolean  @default(true) @map("email_results")
+  emailLeagueUpdates    Boolean  @default(true) @map("email_league_updates")
+  emailWeeklySummary    Boolean  @default(false) @map("email_weekly_summary")
+  pushEnabled           Boolean  @default(false) @map("push_enabled")
+  pushEndpoint          String?  @map("push_endpoint")
+  pushP256dh            String?  @map("push_p256dh")
+  pushAuth              String?  @map("push_auth")
+  pushMatchReminders    Boolean  @default(true) @map("push_match_reminders")
+  pushResults           Boolean  @default(true) @map("push_results")
+  pushLeagueUpdates     Boolean  @default(true) @map("push_league_updates")
+  reminderHoursBefore   Int      @default(24) @map("reminder_hours_before")
+  createdAt             DateTime @default(now()) @map("created_at")
+  updatedAt             DateTime @updatedAt @map("updated_at")
+
+  // Relations
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("notification_settings")
+}
+
+model Notification {
+  id       String   @id @default(cuid())
+  userId   String   @map("user_id")
+  type     String
+  title    String
+  message  String
+  data     Json?
+  isRead   Boolean  @default(false) @map("is_read")
+  sentEmail Boolean @default(false) @map("sent_email")
+  sentPush Boolean  @default(false) @map("sent_push")
+  leagueId String?  @map("league_id")
+  matchId  String?  @map("match_id")
+  createdAt DateTime @default(now()) @map("created_at")
+  readAt   DateTime? @map("read_at")
+
+  // Relations
+  user   User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  league League? @relation(fields: [leagueId], references: [id])
+  match  Match?  @relation(fields: [matchId], references: [id])
+
+  @@map("notifications")
+}
+
+model UserSession {
+  id          String   @id @default(cuid())
+  userId      String   @map("user_id")
+  tokenHash   String   @map("token_hash")
+  deviceInfo  String?  @map("device_info")
+  ipAddress   String?  @map("ip_address")
+  expiresAt   DateTime @map("expires_at")
+  lastUsedAt  DateTime @default(now()) @map("last_used_at")
+  createdAt   DateTime @default(now()) @map("created_at")
+
+  // Relations
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("user_sessions")
+}
+
+model PasswordResetToken {
+  id        String    @id @default(cuid())
+  userId    String    @map("user_id")
+  tokenHash String    @map("token_hash")
+  expiresAt DateTime  @map("expires_at")
+  usedAt    DateTime? @map("used_at")
+  createdAt DateTime  @default(now()) @map("created_at")
+
+  // Relations
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("password_reset_tokens")
+}
+
+// Enums
+enum Role {
+  ADMIN
+  PLAYER
+}
+
+enum GameMode {
+  INDIVIDUAL
+  PAIRS
+  MIXED
+}
+
+enum TournamentFormat {
+  ROUND_ROBIN
+  KNOCKOUT
+  HYBRID
+}
+
+enum LeagueStatus {
+  DRAFT
+  REGISTRATION
+  ACTIVE
+  FINISHED
+  CANCELLED
+}
+
+enum RegistrationType {
+  INDIVIDUAL
+  PAIR_LEADER
+  PAIR_MEMBER
+}
+
+enum ParticipantStatus {
+  PENDING
+  APPROVED
+  REJECTED
+  WITHDRAWN
+}
+
+enum MatchStatus {
+  SCHEDULED
+  IN_PROGRESS
+  COMPLETED
+  CANCELLED
+  POSTPONED
+}
