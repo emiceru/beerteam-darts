@@ -1,6 +1,4 @@
 import { type ClassValue, clsx } from 'clsx';
-import { format, formatDistanceToNow, isValid, parseISO } from 'date-fns';
-import { es } from 'date-fns/locale';
 
 /**
  * Combina clases CSS usando clsx
@@ -13,25 +11,39 @@ export function cn(...inputs: ClassValue[]) {
  * Formatea fechas en español
  */
 export function formatDate(date: Date | string, formatStr: string = 'dd/MM/yyyy'): string {
-  const dateObj = typeof date === 'string' ? parseISO(date) : date;
-  if (!isValid(dateObj)) return 'Fecha inválida';
-  return format(dateObj, formatStr, { locale: es });
+  const dateObj = typeof date === 'string' ? new Date(date) : date;
+  if (isNaN(dateObj.getTime())) return 'Fecha inválida';
+  return dateObj.toLocaleDateString('es-ES');
 }
 
 /**
  * Formatea fecha con hora en español
  */
 export function formatDateTime(date: Date | string): string {
-  return formatDate(date, 'dd/MM/yyyy HH:mm');
+  const dateObj = typeof date === 'string' ? new Date(date) : date;
+  if (isNaN(dateObj.getTime())) return 'Fecha inválida';
+  return dateObj.toLocaleString('es-ES');
 }
 
 /**
  * Formatea distancia de tiempo relativa (ej: "hace 2 horas")
  */
 export function formatTimeAgo(date: Date | string): string {
-  const dateObj = typeof date === 'string' ? parseISO(date) : date;
-  if (!isValid(dateObj)) return 'Fecha inválida';
-  return formatDistanceToNow(dateObj, { addSuffix: true, locale: es });
+  const dateObj = typeof date === 'string' ? new Date(date) : date;
+  if (isNaN(dateObj.getTime())) return 'Fecha inválida';
+  
+  const now = new Date();
+  const diffMs = now.getTime() - dateObj.getTime();
+  const diffMins = Math.floor(diffMs / (1000 * 60));
+  const diffHours = Math.floor(diffMs / (1000 * 60 * 60));
+  const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+  
+  if (diffMins < 1) return 'Ahora mismo';
+  if (diffMins < 60) return `Hace ${diffMins} minuto${diffMins !== 1 ? 's' : ''}`;
+  if (diffHours < 24) return `Hace ${diffHours} hora${diffHours !== 1 ? 's' : ''}`;
+  if (diffDays < 30) return `Hace ${diffDays} día${diffDays !== 1 ? 's' : ''}`;
+  
+  return dateObj.toLocaleDateString('es-ES');
 }
 
 /**
@@ -237,9 +249,9 @@ export function getStatusColor(status: string, type: 'league' | 'match' | 'parti
  * Valida si una fecha está en el rango correcto
  */
 export function isDateInRange(date: Date | string, startDate: Date | string, endDate: Date | string): boolean {
-  const checkDate = typeof date === 'string' ? parseISO(date) : date;
-  const start = typeof startDate === 'string' ? parseISO(startDate) : startDate;
-  const end = typeof endDate === 'string' ? parseISO(endDate) : endDate;
+  const checkDate = typeof date === 'string' ? new Date(date) : date;
+  const start = typeof startDate === 'string' ? new Date(startDate) : startDate;
+  const end = typeof endDate === 'string' ? new Date(endDate) : endDate;
   
   return checkDate >= start && checkDate <= end;
 }
@@ -351,8 +363,8 @@ export function getOrdinalPosition(position: number): string {
  * Calcula la diferencia de días entre dos fechas
  */
 export function daysBetween(date1: Date | string, date2: Date | string): number {
-  const d1 = typeof date1 === 'string' ? parseISO(date1) : date1;
-  const d2 = typeof date2 === 'string' ? parseISO(date2) : date2;
+  const d1 = typeof date1 === 'string' ? new Date(date1) : date1;
+  const d2 = typeof date2 === 'string' ? new Date(date2) : date2;
   const diffTime = Math.abs(d2.getTime() - d1.getTime());
   return Math.ceil(diffTime / (1000 * 60 * 60 * 24));
 }
@@ -361,7 +373,7 @@ export function daysBetween(date1: Date | string, date2: Date | string): number 
  * Verifica si una fecha es hoy
  */
 export function isToday(date: Date | string): boolean {
-  const dateObj = typeof date === 'string' ? parseISO(date) : date;
+  const dateObj = typeof date === 'string' ? new Date(date) : date;
   const today = new Date();
   return dateObj.toDateString() === today.toDateString();
 }
@@ -370,6 +382,6 @@ export function isToday(date: Date | string): boolean {
  * Verifica si una fecha es en el futuro
  */
 export function isFuture(date: Date | string): boolean {
-  const dateObj = typeof date === 'string' ? parseISO(date) : date;
+  const dateObj = typeof date === 'string' ? new Date(date) : date;
   return dateObj > new Date();
 } 
