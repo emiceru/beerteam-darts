@@ -211,7 +211,6 @@ export async function GET(
     // Últimos partidos
     const recentMatches = matches.slice(0, 10).map(match => {
       const userInTeam1 = match.team1.player1Id === userId || match.team1.player2Id === userId;
-      const userTeam = userInTeam1 ? match.team1 : match.team2;
       const opponentTeam = userInTeam1 ? match.team2 : match.team1;
       const userResult = match.results.find(r => r.playerId === userId);
       

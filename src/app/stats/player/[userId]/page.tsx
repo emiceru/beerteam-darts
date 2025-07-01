@@ -5,7 +5,7 @@ import { ArrowLeftIcon } from '@heroicons/react/24/outline';
 import PlayerStats from '@/components/player-stats';
 
 interface Props {
-  params: { userId: string };
+  params: Promise<{ userId: string }>;
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
@@ -16,7 +16,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export default async function PlayerStatsPage({ params }: Props) {
-  const { userId } = params;
+  const { userId } = await params;
 
   if (!userId) {
     notFound();

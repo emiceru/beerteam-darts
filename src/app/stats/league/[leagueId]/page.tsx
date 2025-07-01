@@ -5,7 +5,7 @@ import { ArrowLeftIcon } from '@heroicons/react/24/outline';
 import LeagueStats from '@/components/league-stats';
 
 interface Props {
-  params: { leagueId: string };
+  params: Promise<{ leagueId: string }>;
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
@@ -16,7 +16,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export default async function LeagueStatsPage({ params }: Props) {
-  const { leagueId } = params;
+  const { leagueId } = await params;
 
   if (!leagueId) {
     notFound();
