@@ -259,7 +259,7 @@ export async function resetPassword(token: string, newPassword: string): Promise
   error?: string;
 }> {
   try {
-    const payload = verifyToken(token) as any;
+    const payload = verifyToken(token) as JWTPayload & { type?: string };
     if (!payload || payload.type !== 'password_reset') {
       return { success: false, error: 'Token inválido' };
     }

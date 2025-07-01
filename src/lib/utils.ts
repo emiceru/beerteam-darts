@@ -301,7 +301,7 @@ export function groupBy<T, K extends keyof T>(array: T[], key: K): Record<string
 /**
  * Debounce function para búsquedas
  */
-export function debounce<T extends (...args: any[]) => any>(
+export function debounce<T extends (...args: unknown[]) => unknown>(
   func: T,
   wait: number
 ): (...args: Parameters<T>) => void {

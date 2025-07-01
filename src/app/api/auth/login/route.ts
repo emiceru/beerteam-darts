@@ -77,7 +77,7 @@ export async function POST(request: NextRequest) {
 
     // Crear sesión en la base de datos
     const tokenHash = await bcrypt.hash(token, 10)
-    const session = await prisma.userSession.create({
+    await prisma.userSession.create({
       data: {
         userId: user.id,
         tokenHash,

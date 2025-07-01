@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { prisma } from '@/lib/db'
 
 // GET /api/seasons - Obtener todas las temporadas
-export async function GET(request: NextRequest) {
+export async function GET(_request: NextRequest) {
   try {
     const seasons = await prisma.season.findMany({
       select: {

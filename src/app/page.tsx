@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { Target, Trophy, Users, Calendar, ArrowRight, Star, Shield, Zap } from 'lucide-react';
+import { Target, Trophy, Users, ArrowRight, Star, Zap } from 'lucide-react';
 
 export default function HomePage() {
   return (

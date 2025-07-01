@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { prisma } from '@/lib/db'
 
 // GET /api/competition-types - Obtener todos los tipos de competición
-export async function GET(request: NextRequest) {
+export async function GET(_request: NextRequest) {
   try {
     const competitionTypes = await prisma.competitionType.findMany({
       select: {
