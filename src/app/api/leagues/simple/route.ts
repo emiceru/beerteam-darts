@@ -3,7 +3,7 @@ import { prisma } from '@/lib/db'
 import { getUserFromToken } from '@/lib/auth'
 
 // GET /api/leagues/simple - Obtener todas las ligas (versión simplificada)
-export async function GET(_request: NextRequest) {
+export async function GET() {
   try {
     const leagues = await prisma.league.findMany({
       select: {

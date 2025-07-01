@@ -1,8 +1,8 @@
-import { NextRequest, NextResponse } from 'next/server'
+import { NextResponse } from 'next/server'
 import { prisma } from '@/lib/db'
 
 // GET /api/test - Probar conectividad con la base de datos
-export async function GET(_request: NextRequest) {
+export async function GET() {
   try {
     // Probar conexión a la base de datos
     const userCount = await prisma.user.count()
