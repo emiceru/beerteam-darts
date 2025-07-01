@@ -38,7 +38,7 @@ export default function LoginPage() {
       } else {
         router.push('/dashboard')
       }
-    } catch (error) {
+    } catch {
       setError('Error de conexión')
     } finally {
       setLoading(false)

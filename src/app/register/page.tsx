@@ -62,7 +62,7 @@ export default function RegisterPage() {
 
       // Redirigir al dashboard del usuario
       router.push('/dashboard')
-    } catch (error) {
+    } catch {
       setError('Error de conexión')
     } finally {
       setLoading(false)

@@ -56,7 +56,7 @@ export default function AdminDashboard() {
         }
         
         setUser(data.user)
-      } catch (error) {
+      } catch {
         router.push('/login')
       }
     }
@@ -83,7 +83,7 @@ export default function AdminDashboard() {
   const logout = async () => {
     try {
       await fetch('/api/auth/logout', { method: 'POST' })
-    } catch (error) {
+    } catch {
       // Ignorar error
     }
     router.push('/login')

@@ -21,7 +21,7 @@ export default function HomePage() {
             router.push('/dashboard')
           }
         }
-      } catch (error) {
+      } catch {
         // Usuario no autenticado, mantener en home
       }
     }

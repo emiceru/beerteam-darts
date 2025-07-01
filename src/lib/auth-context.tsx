@@ -34,7 +34,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       } else {
         setUser(null)
       }
-    } catch (error) {
+    } catch {
       setUser(null)
     } finally {
       setLoading(false)
@@ -69,7 +69,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const logout = async () => {
     try {
       await fetch('/api/auth/logout', { method: 'POST' })
-    } catch (error) {
+    } catch {
       // Ignorar errores de logout
     }
     
