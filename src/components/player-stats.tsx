@@ -15,8 +15,7 @@ import {
   Pie,
   Cell
 } from 'recharts';
-import { format } from 'date-fns';
-import { es } from 'date-fns/locale';
+
 
 interface PlayerStatsProps {
   userId: string;
@@ -137,7 +136,10 @@ export default function PlayerStats({ userId }: PlayerStatsProps) {
           <div>
             <h1 className="text-2xl font-bold text-gray-900">{stats.user.name}</h1>
             <p className="text-gray-600">
-              Miembro desde {format(new Date(stats.user.memberSince), 'MMMM yyyy', { locale: es })}
+              Miembro desde {new Date(stats.user.memberSince).toLocaleDateString('es-ES', { 
+                month: 'long', 
+                year: 'numeric' 
+              })}
             </p>
           </div>
           <div className="text-right">
