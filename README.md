@@ -1,265 +1,232 @@
 # 🎯 Beer Team Darts League Manager
 
-Una aplicación web completa (PWA) para gestionar ligas de dardos con funcionalidades avanzadas para administradores y jugadores.
+Una aplicación web PWA moderna para gestionar ligas de dardos con funcionalidades completas de administración y seguimiento de jugadores.
 
-![Beer Team Logo](https://img.shields.io/badge/Beer%20Team-Darts-DC143C?style=for-the-badge&logo=target)
+## ✨ Características Principales
 
-## 🚀 Características Principales
+### 👨‍💼 Panel de Administrador
+- **Gestión de Ligas**: Crear, editar y gestionar ligas de dardos
+- **Tipos de Competición**: Soporte para 501 (cierre doble) y Cricket
+- **Enlaces de Inscripción**: Generar códigos únicos para que los jugadores se unan
+- **Gestión de Participantes**: Aprobar inscripciones y gestionar equipos
+- **Estadísticas en Tiempo Real**: Dashboard con métricas y actividad
 
-- **🏆 Gestión Completa de Ligas**: Individual/Parejas, 501/Cricket, torneos personalizables
-- **👥 Sistema Multi-Usuario**: Roles de administrador y jugador con permisos específicos
-- **📱 PWA Completa**: Instalación, funcionamiento offline, notificaciones push
-- **📊 Estadísticas Avanzadas**: Tracking completo de partidos y clasificaciones automáticas
-- **🔗 Enlaces de Inscripción**: Códigos personalizados para unirse a ligas
-- **🎨 Diseño Moderno**: Interfaz responsive con colores Beer Team (rojo/dorado)
-- **⚡ Tiempo Real**: Notificaciones push y actualizaciones instantáneas
+### 🎯 Dashboard de Jugadores
+- **Mis Ligas**: Ver todas las ligas en las que participa
+- **Clasificaciones**: Seguimiento de posición y estadísticas
+- **Próximos Partidos**: Calendario de encuentros
+- **Historial**: Resultados y estadísticas personales
 
-## 🛠️ Stack Tecnológico
+### 🔗 Sistema de Inscripción
+- **Enlaces Personalizados**: Códigos únicos por liga
+- **Registro Automático**: Los jugadores pueden crear cuenta al inscribirse
+- **Control de Límites**: Máximo de participantes y fechas de expiración
 
-- **Frontend**: Next.js 15, TypeScript, Tailwind CSS
-- **Backend**: Next.js API Routes
-- **Base de Datos**: PostgreSQL + Prisma ORM
-- **Autenticación**: JWT custom
+### 📱 PWA (Progressive Web App)
+- **Instalable**: Se puede instalar como app nativa
+- **Offline**: Funcionalidad básica sin conexión
+- **Notificaciones Push**: Alertas de partidos y resultados
+- **Responsive**: Optimizada para móvil, tablet y desktop
+
+## 🚀 Tecnologías
+
+- **Frontend**: Next.js 14, React 19, TypeScript, Tailwind CSS
+- **Backend**: Next.js API Routes, Prisma ORM
+- **Base de Datos**: PostgreSQL (Vercel Postgres)
 - **PWA**: next-pwa
-- **Notificaciones**: Web Push + Nodemailer
-- **Deployment**: Vercel (gratuito)
-- **UI Components**: Headless UI, Lucide React, Framer Motion
+- **Autenticación**: JWT con cookies seguras
+- **Validación**: Zod para esquemas TypeScript
+- **UI/UX**: Lucide React icons, animaciones smooth
 
-## 📋 Requisitos Previos
+## 📦 Instalación y Configuración
 
+### Prerrequisitos
 - Node.js 18+ 
-- PostgreSQL 12+ (o usar Vercel Postgres)
+- PostgreSQL database (o usar Vercel Postgres)
 - Git
 
-## 🚀 Configuración Inicial
-
-### 1. Clonar el Repositorio
+### 1. Clonar el repositorio
 ```bash
 git clone <repository-url>
 cd beerteam-darts
 ```
 
-### 2. Instalar Dependencias
+### 2. Instalar dependencias
 ```bash
 npm install
 ```
 
-### 3. Configurar Variables de Entorno
+### 3. Configurar variables de entorno
+Crea un archivo `.env` basado en `.env.example`:
 
-Crear archivo `.env` en la raíz del proyecto:
-
-```env
-# Database
-DATABASE_URL="postgresql://username:password@localhost:5432/beerteam_darts?schema=public"
-
-# Para Vercel Postgres (Producción)
-# DATABASE_URL="postgres://default:your_password@your-host.us-east-1.postgres.vercel-storage.com:5432/verceldb"
-
-# Next.js
-NEXTAUTH_SECRET="your-super-secret-jwt-key-min-32-chars"
-NEXTAUTH_URL="http://localhost:3000"
-
-# Email Settings (Nodemailer)
-EMAIL_HOST="smtp.gmail.com"
-EMAIL_PORT="587"
-EMAIL_USER="your-email@gmail.com"
-EMAIL_PASS="your-app-password"
-EMAIL_FROM="Beer Team Darts <noreply@beerteam.com>"
-
-# Push Notifications (Web Push)
-VAPID_PUBLIC_KEY="your-vapid-public-key"
-VAPID_PRIVATE_KEY="your-vapid-private-key"
-VAPID_EMAIL="mailto:admin@beerteam.com"
-
-# App Configuration
-APP_NAME="Beer Team Darts League Manager"
-APP_URL="http://localhost:3000"
-ADMIN_EMAIL="admin@beerteam.com"
-NODE_ENV="development"
-```
-
-### 4. Configurar Base de Datos
-
-#### Opción A: PostgreSQL Local
 ```bash
-# Instalar PostgreSQL
-# Crear base de datos
-createdb beerteam_darts
-
-# Aplicar migraciones
-npm run db:push
+cp .env.example .env
 ```
 
-#### Opción B: Vercel Postgres (Recomendado)
-1. Crear proyecto en [Vercel](https://vercel.com)
-2. Añadir Storage → Postgres
-3. Copiar DATABASE_URL al archivo .env
-4. Ejecutar: `npm run db:push`
-
-### 5. Generar Cliente Prisma y Seed
+Edita `.env` con tus credenciales:
 ```bash
-# Generar cliente
-npm run db:generate
-
-# Poblar base de datos con datos iniciales
-npm run db:seed
+DATABASE_URL="postgresql://usuario:password@localhost:5432/beerteam_darts"
+JWT_SECRET="tu_jwt_secret_super_secreto_y_largo_aqui"
+NEXT_PUBLIC_APP_URL="http://localhost:3000"
 ```
 
-### 6. Iniciar Desarrollo
+### 4. Configurar la base de datos
+```bash
+# Migrar el esquema
+npx prisma migrate dev --name init
+
+# Cargar datos de ejemplo
+npx prisma db seed
+```
+
+### 5. Iniciar el servidor de desarrollo
 ```bash
 npm run dev
 ```
 
 La aplicación estará disponible en [http://localhost:3000](http://localhost:3000)
 
-## 📝 Scripts Disponibles
+## 🔑 Credenciales de Prueba
 
-```bash
-# Desarrollo
-npm run dev          # Iniciar servidor de desarrollo
-npm run build        # Build para producción
-npm run start        # Iniciar servidor de producción
-npm run lint         # Ejecutar ESLint
+Después del seed, puedes usar estas credenciales:
 
-# Base de Datos
-npm run db:push      # Aplicar cambios del schema sin migración
-npm run db:migrate   # Crear y aplicar migración
-npm run db:seed      # Poblar DB con datos iniciales
-npm run db:studio    # Abrir Prisma Studio
-npm run db:generate  # Regenerar cliente Prisma
-```
-
-## 🎮 Datos de Prueba
-
-Después del seed inicial tendrás acceso a:
-
-### 👤 Usuario Administrador
+### Administrador
 - **Email**: admin@beerteam.com
-- **Contraseña**: admin123
+- **Password**: admin123
 
-### 👥 Usuarios de Prueba
-- **Email**: juan@test.com, maria@test.com, carlos@test.com, etc.
-- **Contraseña**: 123456
+### Usuarios de Prueba
+- **Email**: player1@test.com, player2@test.com, etc.
+- **Password**: 123456
 
-### 🏆 Liga de Ejemplo
-- **Nombre**: Liga de Ejemplo 501
-- **Enlace de inscripción**: `/join/ejemplo-501-2024`
-- **Estado**: Inscripciones abiertas
+### Liga de Ejemplo
+- **Enlace de inscripción**: [http://localhost:3000/join/ejemplo-501-2024](http://localhost:3000/join/ejemplo-501-2024)
+
+## 🎮 Uso de la Aplicación
+
+### Como Administrador
+
+1. **Acceder al Panel Admin**: Inicia sesión con credenciales de admin
+2. **Crear Nueva Liga**: 
+   - Ve a "Nueva Liga" en el dashboard
+   - Configura tipo de competición, fechas, participantes máximos
+   - Define reglas de puntuación
+3. **Generar Enlaces de Inscripción**:
+   - Ve a "Enlaces de Inscripción"
+   - Selecciona la liga y configura límites
+   - Comparte el enlace generado
+4. **Gestionar Participantes**: Aprobar inscripciones y crear equipos
+5. **Registrar Resultados**: Ingresar resultados de partidos
+
+### Como Jugador
+
+1. **Inscribirse**: Usa el enlace proporcionado por el admin
+2. **Ver Dashboard**: Revisa tus ligas, clasificaciones y próximos partidos
+3. **Seguir Estadísticas**: Monitorea tu progreso y historial
 
 ## 🗂️ Estructura del Proyecto
 
 ```
 beerteam-darts/
-├── src/
-│   ├── app/                 # App Router de Next.js
-│   │   ├── api/            # API Routes
-│   │   ├── auth/           # Páginas de autenticación
-│   │   ├── dashboard/      # Dashboard de usuario
-│   │   ├── admin/          # Panel de administración
-│   │   └── leagues/        # Páginas de ligas
-│   ├── components/         # Componentes reutilizables
-│   ├── lib/               # Utilidades y configuración
-│   │   ├── auth.ts        # Sistema de autenticación
-│   │   ├── db.ts          # Configuración Prisma
-│   │   ├── utils.ts       # Funciones helper
-│   │   └── validations.ts # Esquemas Zod
-│   └── types/             # Tipos TypeScript
 ├── prisma/
 │   ├── schema.prisma      # Modelo de datos
 │   └── seed.ts           # Datos iniciales
-├── public/               # Assets estáticos
-└── docs/                 # Documentación adicional
+├── src/
+│   ├── app/
+│   │   ├── admin/        # Panel de administrador
+│   │   ├── api/          # API Routes
+│   │   ├── dashboard/    # Dashboard de jugadores
+│   │   ├── join/         # Páginas de inscripción
+│   │   └── ...
+│   ├── lib/
+│   │   ├── auth.ts       # Sistema de autenticación
+│   │   ├── db.ts         # Cliente de base de datos
+│   │   └── validations.ts # Esquemas de validación
+│   └── types/            # Tipos TypeScript
+├── public/               # Archivos estáticos y PWA
+└── ...
 ```
 
-## 🎨 Diseño y Colores
+## 🔧 Scripts Disponibles
 
-La aplicación utiliza la paleta de colores oficial de Beer Team:
-
-- **Rojo Principal**: `#DC143C` (beer-red)
-- **Dorado**: `#FFD700` (beer-gold)  
-- **Crema**: `#FFF8DC` (beer-cream)
-- **Negro**: `#000000` (beer-black)
-
-## 🔧 Configuración de Desarrollo
-
-### ESLint y Prettier
-El proyecto viene preconfigurado con reglas de linting y formateo.
-
-### PWA
-En desarrollo, PWA está deshabilitado. Se activa automáticamente en producción.
-
-### Base de Datos
-Usa Prisma Studio para explorar los datos:
 ```bash
-npm run db:studio
+# Desarrollo
+npm run dev                # Iniciar servidor de desarrollo
+
+# Base de datos
+npm run db:migrate        # Ejecutar migraciones
+npm run db:seed           # Cargar datos de ejemplo
+npm run db:studio         # Abrir Prisma Studio
+npm run db:generate       # Regenerar cliente Prisma
+
+# Producción
+npm run build             # Construir para producción
+npm run start             # Iniciar servidor de producción
 ```
+
+## 🎯 Tipos de Competición Soportados
+
+### 501 con Cierre Doble
+- Objetivo: Reducir puntuación de 501 a exactamente 0
+- Cierre: Debe finalizar con doble
+- Formato: Mejor de 3 o 5 sets
+
+### Cricket
+- Objetivo: Cerrar números 20, 19, 18, 17, 16, 15 y bull
+- Estrategia: Cerrar y puntuar para ganar
+- Formato: Primero en cerrar todos los números con ventaja
+
+## 🎨 Diseño y UX
+
+- **Paleta de Colores Beer Team**: Rojo (#DC143C) y Dorado (#FFD700)
+- **Diseño Moderno**: Interfaz limpia y profesional
+- **Responsive**: Optimizado para todos los dispositivos
+- **Accesibilidad**: Siguiendo estándares WCAG
+- **Animaciones Suaves**: Transiciones y micro-interacciones
+
+## 🔒 Seguridad
+
+- **Autenticación JWT**: Tokens seguros con expiración
+- **Validación de Datos**: Esquemas Zod en frontend y backend
+- **Sanitización**: Protección contra XSS e inyecciones
+- **HTTPS**: Configurado para producción
+- **Roles de Usuario**: Control de acceso granular
 
 ## 🚀 Deployment
 
 ### Vercel (Recomendado)
-1. Push tu código a GitHub
-2. Conectar repositorio en [Vercel](https://vercel.com)
-3. Configurar variables de entorno en Vercel
-4. Deploy automático
+1. Conecta tu repositorio GitHub con Vercel
+2. Configura variables de entorno en el dashboard de Vercel
+3. El deploy será automático en cada push
 
-### Variables de Entorno en Producción
-Asegúrate de configurar todas las variables en Vercel:
-- `DATABASE_URL` (Vercel Postgres)
-- `NEXTAUTH_SECRET` (generar nuevo)
-- `EMAIL_*` (configuración SMTP)
-- `VAPID_*` (para push notifications)
-
-## 📖 Documentación Adicional
-
-- [Requisitos Funcionales](./requisitos-funcionales.md)
-- [Modelo de Datos](./modelo-datos.md)
-- [API Documentation](./docs/api.md) (próximamente)
-- [Guía de Usuario](./docs/user-guide.md) (próximamente)
-
-## 🐛 Troubleshooting
-
-### Problemas Comunes
-
-**Error de conexión a DB**
+### Manual
 ```bash
-# Verificar que PostgreSQL esté ejecutándose
-# Comprobar credenciales en .env
-# Ejecutar: npm run db:push
-```
-
-**Error de build**
-```bash
-# Limpiar cache y reinstalar
-rm -rf .next node_modules
-npm install
 npm run build
-```
-
-**Problemas con Prisma**
-```bash
-# Regenerar cliente
-npm run db:generate
-# Reset completo (¡cuidado!)
-npx prisma db push --force-reset
-npm run db:seed
+npm run start
 ```
 
 ## 🤝 Contribución
 
 1. Fork del proyecto
-2. Crear rama feature (`git checkout -b feature/nueva-funcionalidad`)
-3. Commit cambios (`git commit -m 'Añadir nueva funcionalidad'`)
-4. Push a la rama (`git push origin feature/nueva-funcionalidad`)
-5. Crear Pull Request
+2. Crear branch de feature (`git checkout -b feature/AmazingFeature`)
+3. Commit de cambios (`git commit -m 'Add some AmazingFeature'`)
+4. Push al branch (`git push origin feature/AmazingFeature`)
+5. Abrir Pull Request
 
-## 📄 Licencia
+## 📝 Licencia
 
-Este proyecto está bajo la Licencia MIT - ver el archivo [LICENSE](LICENSE) para detalles.
+Este proyecto está bajo la Licencia MIT. Ver el archivo `LICENSE` para más detalles.
 
-## 👥 Equipo
+## 🎯 Roadmap
 
-Desarrollado con ❤️ por el equipo Beer Team para la comunidad de jugadores de dardos.
+- [ ] Sistema de torneos knockout
+- [ ] Estadísticas avanzadas y gráficos
+- [ ] Chat entre jugadores
+- [ ] Notificaciones por email
+- [ ] API pública para integraciones
+- [ ] Modo espectador en vivo
+- [ ] Clasificaciones globales
+- [ ] Sistema de handicap
 
 ---
 
-¿Problemas o sugerencias? [Crear un issue](../../issues) o contactar: info@beerteam.com
+**¡Desarrollado con ❤️ para la comunidad de dardos Beer Team!**

@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
+import { PushNotifications } from '@/components/push-notifications'
 
 interface User {
   id: string
@@ -125,12 +126,23 @@ export default function DashboardPage() {
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Welcome Section */}
         <div className="bg-white rounded-lg shadow-sm p-6 mb-8">
-          <h2 className="text-2xl font-bold text-gray-900 mb-2">
-            ¡Bienvenido, {user?.name}! 🎯
-          </h2>
-          <p className="text-gray-600">
-            Desde aquí puedes ver tus ligas, estadísticas y próximos partidos.
-          </p>
+          <div className="flex justify-between items-start">
+            <div>
+              <h2 className="text-2xl font-bold text-gray-900 mb-2">
+                ¡Bienvenido, {user?.name}! 🎯
+              </h2>
+              <p className="text-gray-600">
+                Desde aquí puedes ver tus ligas, estadísticas y próximos partidos.
+              </p>
+            </div>
+            <Link
+              href={`/stats/player/${user?.id}`}
+              className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white px-6 py-3 rounded-lg transition-all duration-200 font-semibold flex items-center space-x-2"
+            >
+              <span>📊</span>
+              <span>Mis Estadísticas</span>
+            </Link>
+          </div>
         </div>
 
         <div className="grid lg:grid-cols-3 gap-8">

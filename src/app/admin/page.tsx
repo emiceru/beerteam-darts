@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
+import { PushNotifications, usePushNotifications } from '@/components/push-notifications'
 
 interface User {
   id: string
@@ -259,6 +260,12 @@ export default function AdminDashboard() {
                           </div>
                           <div className="flex space-x-2">
                             <Link
+                              href={`/stats/league/${league.id}`}
+                              className="text-purple-600 hover:text-purple-700 text-sm font-medium"
+                            >
+                              📊 Stats
+                            </Link>
+                            <Link
                               href={`/admin/leagues/${league.slug}/edit`}
                               className="text-blue-600 hover:text-blue-700 text-sm font-medium"
                             >
@@ -303,6 +310,18 @@ export default function AdminDashboard() {
                   Nueva Liga
                 </Link>
                 <Link
+                  href="/admin/join-links"
+                  className="block w-full bg-blue-600 hover:bg-blue-700 text-white text-center py-2 px-4 rounded-lg transition-colors"
+                >
+                  Enlaces de Inscripción
+                </Link>
+                <Link
+                  href="/admin/matches"
+                  className="block w-full bg-green-600 hover:bg-green-700 text-white text-center py-2 px-4 rounded-lg transition-colors"
+                >
+                  Gestionar Partidos
+                </Link>
+                <Link
                   href="/admin/users"
                   className="block w-full border border-gray-300 text-gray-700 hover:bg-gray-50 text-center py-2 px-4 rounded-lg transition-colors"
                 >
@@ -319,6 +338,25 @@ export default function AdminDashboard() {
                   className="block w-full border border-gray-300 text-gray-700 hover:bg-gray-50 text-center py-2 px-4 rounded-lg transition-colors"
                 >
                   Configuración
+                </Link>
+              </div>
+            </div>
+
+            {/* Notificaciones Push */}
+            <div className="bg-white rounded-lg shadow-sm p-6">
+              <h3 className="text-lg font-semibold text-gray-900 mb-4">📱 Notificaciones Push</h3>
+              <p className="text-gray-600 text-sm mb-4">
+                Recibe notificaciones administrativas y mantente conectado con la actividad de las ligas.
+              </p>
+              <PushNotifications userId={user?.id} className="w-full mb-4" />
+              
+              {/* Área para enviar notificaciones */}
+              <div className="border-t pt-4 mt-4">
+                <Link
+                  href="/admin/notifications"
+                  className="block w-full bg-yellow-600 hover:bg-yellow-700 text-white text-center py-2 px-4 rounded-lg transition-colors text-sm"
+                >
+                  📢 Enviar Notificación
                 </Link>
               </div>
             </div>

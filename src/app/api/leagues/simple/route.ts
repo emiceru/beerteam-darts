@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { prisma } from '@/lib/db'
 import { getUserFromToken } from '@/lib/auth'
+import { createLeagueSchema } from '@/lib/validations'
 
 // GET /api/leagues/simple - Obtener todas las ligas (versión simplificada)
 export async function GET() {
@@ -55,7 +56,7 @@ export async function GET() {
   }
 }
 
-// POST /api/leagues/simple - Crear nueva liga (versión simplificada)
+// POST /api/leagues/simple - Crear nueva liga (completa)
 export async function POST(request: NextRequest) {
   try {
     // Verificar autenticación
@@ -78,39 +79,111 @@ export async function POST(request: NextRequest) {
     }
 
     const body = await request.json()
-    const { name, description, seasonId, competitionTypeId } = body
-
-    if (!name || !description || !seasonId || !competitionTypeId) {
+    
+    // Validar con el schema completo
+    const validation = createLeagueSchema.safeParse(body)
+    if (!validation.success) {
       return NextResponse.json(
-        { error: 'Faltan campos requeridos' },
+        { error: 'Datos inválidos', details: validation.error.errors },
         { status: 400 }
       )
     }
 
-    // Generar slug simple
-    const slug = name.toLowerCase().replace(/[^a-z0-9]/g, '-') + '-' + Date.now()
+    const data = validation.data
+
+    // Verificar que la temporada y tipo de competición existen
+    const [season, competitionType] = await Promise.all([
+      prisma.season.findUnique({ where: { id: data.seasonId } }),
+      prisma.competitionType.findUnique({ where: { id: data.competitionTypeId } })
+    ])
+
+    if (!season) {
+      return NextResponse.json(
+        { error: 'Temporada no encontrada' },
+        { status: 404 }
+      )
+    }
+
+    if (!competitionType) {
+      return NextResponse.json(
+        { error: 'Tipo de competición no encontrado' },
+        { status: 404 }
+      )
+    }
+
+    // Generar slug único
+    const baseSlug = data.name.toLowerCase()
+      .replace(/[^a-z0-9\s]/gi, '')
+      .replace(/\s+/g, '-')
+      .substring(0, 50)
+    
+    let slug = baseSlug
+    let counter = 1
+    
+    // Verificar que el slug sea único
+    while (await prisma.league.findUnique({ where: { slug } })) {
+      slug = `${baseSlug}-${counter}`
+      counter++
+    }
+
+    // Preparar configuraciones JSON
+    const scoringConfig = {
+      points_win: data.pointsWin,
+      points_draw: data.pointsDraw,
+      points_loss: data.pointsLoss,
+    }
+
+    const matchDataConfig = {
+      track_detailed_score: data.trackDetailedScore,
+      track_game_by_game: data.trackGameByGame,
+      track_throw_count: data.trackThrowCount,
+      track_time: data.trackTime,
+    }
 
     const league = await prisma.league.create({
       data: {
-        name,
+        name: data.name,
         slug,
-        description,
-        rulesDescription: '',
-        seasonId,
-        competitionTypeId,
+        description: data.description,
+        rulesDescription: data.rulesDescription,
+        seasonId: data.seasonId,
+        competitionTypeId: data.competitionTypeId,
         createdBy: user.id,
-        gameMode: 'INDIVIDUAL',
-        tournamentFormat: 'ROUND_ROBIN',
+        gameMode: data.gameMode,
+        tournamentFormat: data.tournamentFormat,
+        maxParticipants: data.maxParticipants,
         status: 'DRAFT',
         isPublic: true,
         registrationOpen: true,
-        autoApproveRegistrations: false,
-        scoringConfig: {},
-        matchDataConfig: {},
-        registrationStart: new Date(),
-        registrationEnd: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000), // 30 días
-        leagueStart: new Date(Date.now() + 35 * 24 * 60 * 60 * 1000),
-        leagueEnd: new Date(Date.now() + 90 * 24 * 60 * 60 * 1000),
+        autoApproveRegistrations: data.autoApproveRegistrations,
+        scoringConfig,
+        matchDataConfig,
+        registrationStart: new Date(data.registrationStart),
+        registrationEnd: new Date(data.registrationEnd),
+        leagueStart: new Date(data.leagueStart),
+        leagueEnd: new Date(data.leagueEnd),
+      },
+      include: {
+        season: {
+          select: {
+            id: true,
+            name: true,
+            year: true,
+          }
+        },
+        competitionType: {
+          select: {
+            id: true,
+            name: true,
+            slug: true,
+          }
+        },
+        creator: {
+          select: {
+            id: true,
+            name: true,
+          }
+        }
       }
     })
 

@@ -1,0 +1,23 @@
+<svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+  <!-- Fondo circular rojo Beer Team -->
+  <circle cx="256" cy="256" r="256" fill="#DC143C"/>
+  
+  <!-- Diana de dardos -->
+  <circle cx="256" cy="256" r="200" fill="#FFF8DC" stroke="#FFD700" stroke-width="8"/>
+  <circle cx="256" cy="256" r="160" fill="#DC143C"/>
+  <circle cx="256" cy="256" r="120" fill="#FFF8DC"/>
+  <circle cx="256" cy="256" r="80" fill="#DC143C"/>
+  <circle cx="256" cy="256" r="40" fill="#FFD700"/>
+  <circle cx="256" cy="256" r="20" fill="#DC143C"/>
+  
+  <!-- Líneas divisorias -->
+  <line x1="256" y1="56" x2="256" y2="456" stroke="#000" stroke-width="2" opacity="0.3"/>
+  <line x1="56" y1="256" x2="456" y2="256" stroke="#000" stroke-width="2" opacity="0.3"/>
+  
+  <!-- Dardo en el centro -->
+  <polygon points="256,236 276,246 276,266 256,276 236,266 236,246" fill="#FFD700"/>
+  <circle cx="256" cy="256" r="8" fill="#DC143C"/>
+  
+  <!-- Texto Beer Team (opcional, para iconos más grandes) -->
+  <text x="256" y="420" text-anchor="middle" fill="#FFD700" font-family="Arial Black, sans-serif" font-size="24" font-weight="bold">BEER TEAM</text>
+</svg> 
