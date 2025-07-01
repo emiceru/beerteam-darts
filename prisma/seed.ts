@@ -247,10 +247,9 @@ Esta es una liga de **demostración** para probar todas las funcionalidades de l
 
     // Crear equipo individual para cada participante
     await prisma.team.upsert({
-      where: { leagueId_player1Id_player2Id: { 
+      where: { leagueId_player1Id: { 
         leagueId: exampleLeague.id, 
-        player1Id: user.id, 
-        player2Id: null 
+        player1Id: user.id
       }},
       update: {},
       create: {

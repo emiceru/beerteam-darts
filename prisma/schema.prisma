@@ -184,7 +184,7 @@ model Team {
   results       MatchResult[]
   standings     Standing[]
 
-  @@unique([leagueId, player1Id, player2Id])
+  @@unique([leagueId, player1Id])
   @@map("teams")
 }
 
