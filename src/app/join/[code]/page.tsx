@@ -80,7 +80,7 @@ export default function JoinPage() {
         } else {
           setError(data.error || 'Error cargando la liga')
         }
-      } catch (err) {
+      } catch {
         setError('Error de conexión')
       } finally {
         setLoading(false)
@@ -120,7 +120,7 @@ export default function JoinPage() {
       } else {
         setError(data.error || 'Error en la inscripción')
       }
-    } catch (err) {
+    } catch {
       setError('Error de conexión')
     } finally {
       setSubmitting(false)

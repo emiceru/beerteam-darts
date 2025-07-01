@@ -10,13 +10,9 @@ import {
   Tooltip,
   ResponsiveContainer,
   BarChart,
-  Bar,
-  RadialBarChart,
-  RadialBar,
-  Legend
+  Bar
 } from 'recharts';
 import { format } from 'date-fns';
-import { es } from 'date-fns/locale';
 
 interface LeagueStatsProps {
   leagueId: string;

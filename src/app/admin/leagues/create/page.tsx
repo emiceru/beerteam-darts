@@ -150,8 +150,8 @@ export default function CreateLeague() {
           leagueEnd: leagueEnd.toISOString().split('T')[0],
         }))
 
-      } catch (error) {
-        console.error('Error cargando datos:', error)
+      } catch {
+        console.error('Error cargando datos')
         setError('Error cargando datos necesarios')
       } finally {
         setLoading(false)
@@ -203,7 +203,7 @@ export default function CreateLeague() {
           console.error('Detalles del error:', data.details)
         }
       }
-    } catch (error) {
+    } catch {
       setError('Error de conexion')
     } finally {
       setSubmitting(false)

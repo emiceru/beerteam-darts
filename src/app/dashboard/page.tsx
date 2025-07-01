@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
-import { PushNotifications } from '@/components/push-notifications'
+
 
 interface User {
   id: string

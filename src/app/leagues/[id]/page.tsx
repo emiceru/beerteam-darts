@@ -99,7 +99,6 @@ interface Match {
 
 export default function LeaguePage() {
   const params = useParams()
-  const router = useRouter()
   const id = params.id as string
 
   const [league, setLeague] = useState<League | null>(null)
@@ -151,7 +150,7 @@ export default function LeaguePage() {
           setMatches(matchesData.matches || [])
         }
 
-      } catch (err) {
+      } catch {
         setError('Error cargando la liga')
       } finally {
         setLoading(false)

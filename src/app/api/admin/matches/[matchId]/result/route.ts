@@ -2,10 +2,14 @@ import { NextRequest, NextResponse } from 'next/server'
 import { prisma } from '@/lib/db'
 import { getUserFromToken } from '@/lib/auth'
 
+type Context = {
+  params: Promise<{ matchId: string }>
+}
+
 // PATCH /api/admin/matches/[matchId]/result - Registrar resultado de partido
 export async function PATCH(
   request: NextRequest,
-  { params }: { params: { matchId: string } }
+  { params }: Context
 ) {
   try {
     // Verificar autenticación de admin
@@ -27,7 +31,7 @@ export async function PATCH(
       )
     }
 
-    const { matchId } = params
+    const { matchId } = await params
     const body = await request.json()
     const { team1Score, team2Score } = body
 
