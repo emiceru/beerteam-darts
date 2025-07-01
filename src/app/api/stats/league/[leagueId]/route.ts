@@ -18,7 +18,7 @@ interface PlayerStats {
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: { leagueId: string } }
+  { params }: { params: Promise<{ leagueId: string }> }
 ) {
   try {
     // Verificar autenticación (opcional para acceso público)
@@ -29,7 +29,7 @@ export async function GET(
       decoded = verifyToken(token);
     }
 
-    const { leagueId } = params;
+    const { leagueId } = await params;
 
     // Obtener información de la liga
     const league = await prisma.league.findUnique({

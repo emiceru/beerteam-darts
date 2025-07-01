@@ -4,10 +4,10 @@ import { prisma } from '@/lib/db'
 // GET /api/leagues/[id]/standings - Obtener clasificaciones de una liga
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const { id } = params
+    const { id } = await params
 
     // Buscar liga por ID o slug
     let league = await prisma.league.findUnique({

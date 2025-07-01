@@ -4,10 +4,10 @@ import { prisma } from '@/lib/db'
 // GET /api/leagues/[id] - Obtener liga por ID o slug
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const { id } = params
+    const { id } = await params
 
     // Intentar buscar por ID primero, luego por slug
     let league = await prisma.league.findUnique({

@@ -11,7 +11,7 @@ interface CompetitionStats {
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: { userId: string } }
+  { params }: { params: Promise<{ userId: string }> }
 ) {
   try {
     // Verificar autenticación
@@ -31,7 +31,7 @@ export async function GET(
       );
     }
 
-    const { userId } = params;
+    const { userId } = await params;
     const requesterId = decoded.userId;
 
     // Solo el propio usuario o un admin puede ver estadísticas detalladas

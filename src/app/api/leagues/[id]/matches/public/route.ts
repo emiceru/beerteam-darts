@@ -3,12 +3,14 @@ import { prisma } from '@/lib/db';
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const { id } = await params
+    
     // Verificar que la liga existe
     const league = await prisma.league.findUnique({
-      where: { id: params.id },
+      where: { id },
       select: { id: true }
     });
 
@@ -21,7 +23,7 @@ export async function GET(
 
     // Obtener partidos de la liga
     const matches = await prisma.match.findMany({
-      where: { leagueId: params.id },
+      where: { leagueId: id },
       include: {
         team1: {
           include: {
