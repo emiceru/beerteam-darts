@@ -78,7 +78,7 @@ export default function AdminNotifications() {
     }
 
     try {
-      const payload: any = {
+      const payload: { title: string; message: string; url: string; leagueId?: string } = {
         title: title.trim(),
         message: message.trim(),
         url: url.trim() || '/dashboard'
@@ -196,7 +196,7 @@ export default function AdminNotifications() {
                         name="targetType"
                         value="all"
                         checked={targetType === 'all'}
-                        onChange={(e) => setTargetType(e.target.value as any)}
+                        onChange={(e) => setTargetType(e.target.value as 'all' | 'league')}
                         className="mr-2"
                       />
                       <span className="text-sm">📢 Todos los usuarios con notificaciones activas</span>
@@ -208,7 +208,7 @@ export default function AdminNotifications() {
                         name="targetType"
                         value="league"
                         checked={targetType === 'league'}
-                        onChange={(e) => setTargetType(e.target.value as any)}
+                        onChange={(e) => setTargetType(e.target.value as 'all' | 'league')}
                         className="mr-2"
                       />
                       <span className="text-sm">🏆 Participantes de una liga específica</span>
@@ -271,7 +271,9 @@ export default function AdminNotifications() {
               <h3 className="text-lg font-semibold text-gray-900 mb-4">👀 Vista Previa</h3>
               <div className="border border-gray-200 rounded-lg p-4 bg-gray-50">
                 <div className="flex items-start space-x-3">
-                  <img src="/icon-96x96.png" alt="Icon" className="w-8 h-8 rounded" />
+                  <div className="w-8 h-8 bg-red-600 rounded flex items-center justify-center">
+                    <span className="text-white text-xs">🎯</span>
+                  </div>
                   <div className="flex-1">
                     <p className="font-semibold text-sm text-gray-900">
                       {title || 'Título de la notificación'}

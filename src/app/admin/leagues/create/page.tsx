@@ -203,7 +203,7 @@ export default function CreateLeague() {
           console.error('Detalles del error:', data.details)
         }
       }
-    } catch (err) {
+    } catch (error) {
       setError('Error de conexion')
     } finally {
       setSubmitting(false)
@@ -413,7 +413,7 @@ export default function CreateLeague() {
                   <select
                     id="gameMode"
                     value={formData.gameMode}
-                    onChange={(e) => setFormData({ ...formData, gameMode: e.target.value as any })}
+                    onChange={(e) => setFormData({ ...formData, gameMode: e.target.value as 'INDIVIDUAL' | 'PAIRS' | 'MIXED' })}
                     className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500"
                     required
                   >
@@ -430,7 +430,7 @@ export default function CreateLeague() {
                   <select
                     id="tournamentFormat"
                     value={formData.tournamentFormat}
-                    onChange={(e) => setFormData({ ...formData, tournamentFormat: e.target.value as any })}
+                    onChange={(e) => setFormData({ ...formData, tournamentFormat: e.target.value as 'ROUND_ROBIN' | 'KNOCKOUT' | 'HYBRID' })}
                     className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500"
                     required
                   >

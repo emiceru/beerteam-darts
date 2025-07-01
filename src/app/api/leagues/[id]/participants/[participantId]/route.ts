@@ -174,7 +174,7 @@ export async function PATCH(
     }
 
     // Preparar datos de actualización
-    let updateData: any = {
+    const updateData: any = {
       approvedBy: user.id,
       approvedAt: new Date(),
     }

@@ -118,7 +118,7 @@ async function updateStandings(
   team2Id: string, 
   team1Score: number, 
   team2Score: number,
-  scoringConfig: any
+          scoringConfig: any
 ) {
   const config = scoringConfig || { points_win: 3, points_draw: 1, points_loss: 0 }
   

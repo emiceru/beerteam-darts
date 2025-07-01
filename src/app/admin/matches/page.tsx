@@ -145,7 +145,7 @@ export default function MatchesManagement() {
       } else {
         setError(data.error || 'Error generando partidos')
       }
-    } catch (err) {
+    } catch {
       setError('Error de conexión')
     }
   }
@@ -168,7 +168,7 @@ export default function MatchesManagement() {
       } else {
         setError(data.error || 'Error actualizando resultado')
       }
-    } catch (err) {
+    } catch {
       setError('Error de conexión')
     }
   }

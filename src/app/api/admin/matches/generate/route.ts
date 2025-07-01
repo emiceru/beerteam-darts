@@ -83,7 +83,7 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    let matches: any[] = []
+    const matches: any[] = []
 
     if (league.tournamentFormat === 'ROUND_ROBIN') {
       // Generar partidos de todos contra todos

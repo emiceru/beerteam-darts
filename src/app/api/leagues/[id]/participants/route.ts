@@ -252,7 +252,7 @@ export async function PUT(
       )
     }
 
-    let updateData: any = {}
+            let updateData: any = {}
     let message = ''
 
     switch (action) {

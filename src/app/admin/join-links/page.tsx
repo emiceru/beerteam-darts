@@ -110,7 +110,7 @@ export default function JoinLinksManagement() {
     setError('')
 
     try {
-      const requestData: any = {
+      const requestData: { leagueId: string; expiresAt?: string; maxUses?: number } = {
         leagueId: createForm.leagueId
       }
 
@@ -146,7 +146,7 @@ export default function JoinLinksManagement() {
       } else {
         setError(data.error || 'Error creando enlace')
       }
-    } catch (err) {
+    } catch {
       setError('Error de conexión')
     } finally {
       setCreating(false)
@@ -158,7 +158,7 @@ export default function JoinLinksManagement() {
     try {
       await navigator.clipboard.writeText(url)
       setSuccess('Enlace copiado al portapapeles')
-    } catch (err) {
+    } catch {
       setError('Error copiando enlace')
     }
   }
