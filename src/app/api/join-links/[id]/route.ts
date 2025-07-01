@@ -3,7 +3,7 @@ import { prisma } from '@/lib/db'
 import { getUserFromToken } from '@/lib/auth'
 
 interface Context {
-  params: { id: string }
+  params: Promise<{ id: string }>
 }
 
 // GET /api/join-links/[id] - Obtener enlace específico

@@ -5,7 +5,7 @@ import { hashPassword, generateToken } from '@/lib/auth'
 import bcrypt from 'bcryptjs'
 
 interface Context {
-  params: { code: string }
+  params: Promise<{ code: string }>
 }
 
 const joinSchema = z.object({
