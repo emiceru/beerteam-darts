@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
+import Logo from '@/components/logo'
 
 interface User {
   id: string
@@ -32,6 +33,7 @@ interface FormData {
   description: string
   rulesDescription: string
   seasonId: string
+  newSeasonName: string
   competitionTypeId: string
   
   // Configuracion de juego
@@ -73,6 +75,7 @@ export default function CreateLeague() {
     description: '',
     rulesDescription: '',
     seasonId: '',
+    newSeasonName: '',
     competitionTypeId: '',
     gameMode: 'INDIVIDUAL',
     tournamentFormat: 'ROUND_ROBIN',
@@ -169,6 +172,20 @@ export default function CreateLeague() {
     setError('')
 
     try {
+      // Validar que si no hay temporada seleccionada, al menos haya nombre de nueva temporada
+      if (!formData.seasonId && !formData.newSeasonName) {
+        setError('Debes seleccionar una temporada existente o crear una nueva')
+        setSubmitting(false)
+        return
+      }
+
+      // Si se está creando nueva temporada, validar el nombre
+      if (formData.seasonId === 'new' && !formData.newSeasonName.trim()) {
+        setError('Debes especificar el nombre de la nueva temporada')
+        setSubmitting(false)
+        return
+      }
+
       // Preparar datos para envio
       const submitData = {
         ...formData,
@@ -180,6 +197,9 @@ export default function CreateLeague() {
         registrationEnd: `${formData.registrationEnd}T23:59:59.000Z`,
         leagueStart: `${formData.leagueStart}T00:00:00.000Z`,
         leagueEnd: `${formData.leagueEnd}T23:59:59.000Z`,
+        // Si seasonId es 'new', se enviará junto con newSeasonName para que el backend maneje la creación
+        seasonId: formData.seasonId || null,
+        newSeasonName: formData.seasonId === 'new' ? formData.newSeasonName.trim() : undefined,
       }
 
       const response = await fetch('/api/leagues/simple', {
@@ -238,7 +258,7 @@ export default function CreateLeague() {
           <div className="flex justify-between items-center py-6">
             <div className="flex items-center">
               <Link href="/admin" className="flex items-center">
-                <h1 className="text-2xl font-bold text-red-600">Beer Team</h1>
+                <Logo size="lg" showText={false} />
                 <span className="ml-3 text-lg text-gray-700">Nueva Liga</span>
               </Link>
             </div>
@@ -308,7 +328,7 @@ export default function CreateLeague() {
                     id="name"
                     value={formData.name}
                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 text-gray-900"
                     required
                     placeholder="Ej: Liga de Dardos Primavera 2024"
                   />
@@ -316,22 +336,39 @@ export default function CreateLeague() {
 
                 <div>
                   <label htmlFor="seasonId" className="block text-sm font-medium text-gray-700 mb-2">
-                    Temporada *
+                    Temporada
                   </label>
                   <select
                     id="seasonId"
                     value={formData.seasonId}
-                    onChange={(e) => setFormData({ ...formData, seasonId: e.target.value })}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500"
-                    required
+                    onChange={(e) => setFormData({ ...formData, seasonId: e.target.value, newSeasonName: e.target.value === 'new' ? formData.newSeasonName : '' })}
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 text-gray-900"
                   >
-                    <option value="">Seleccionar temporada</option>
+                    <option value="">Seleccionar temporada existente</option>
                     {seasons.map(season => (
                       <option key={season.id} value={season.id}>
                         {season.name} {season.year} {season.isActive && '(Activa)'}
                       </option>
                     ))}
+                    <option value="new">+ Crear nueva temporada</option>
                   </select>
+                  
+                  {formData.seasonId === 'new' && (
+                    <div className="mt-3">
+                      <label htmlFor="newSeasonName" className="block text-sm font-medium text-gray-700 mb-2">
+                        Nombre de la nueva temporada *
+                      </label>
+                      <input
+                        type="text"
+                        id="newSeasonName"
+                        value={formData.newSeasonName}
+                        onChange={(e) => setFormData({ ...formData, newSeasonName: e.target.value })}
+                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 text-gray-900"
+                        required={formData.seasonId === 'new'}
+                        placeholder="Ej: Temporada Verano 2024"
+                      />
+                    </div>
+                  )}
                 </div>
 
                 <div>
@@ -342,7 +379,7 @@ export default function CreateLeague() {
                     id="competitionTypeId"
                     value={formData.competitionTypeId}
                     onChange={(e) => setFormData({ ...formData, competitionTypeId: e.target.value })}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 text-gray-900"
                     required
                   >
                     <option value="">Seleccionar tipo de competicion</option>
@@ -365,7 +402,7 @@ export default function CreateLeague() {
                     max="1000"
                     value={formData.maxParticipants}
                     onChange={(e) => setFormData({ ...formData, maxParticipants: e.target.value })}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 text-gray-900"
                     placeholder="Dejar vacio para ilimitado"
                   />
                 </div>
@@ -379,7 +416,7 @@ export default function CreateLeague() {
                     rows={3}
                     value={formData.description}
                     onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 text-gray-900"
                     placeholder="Descripcion breve de la liga..."
                   />
                 </div>
@@ -393,7 +430,7 @@ export default function CreateLeague() {
                     rows={6}
                     value={formData.rulesDescription}
                     onChange={(e) => setFormData({ ...formData, rulesDescription: e.target.value })}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 text-gray-900"
                     required
                     placeholder="Describe las reglas especificas de esta liga, formato de partidos, sistema de puntuacion, etc. (Markdown soportado)"
                   />
@@ -414,7 +451,7 @@ export default function CreateLeague() {
                     id="gameMode"
                     value={formData.gameMode}
                     onChange={(e) => setFormData({ ...formData, gameMode: e.target.value as 'INDIVIDUAL' | 'PAIRS' | 'MIXED' })}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 text-gray-900"
                     required
                   >
                     <option value="INDIVIDUAL">Individual</option>
@@ -431,7 +468,7 @@ export default function CreateLeague() {
                     id="tournamentFormat"
                     value={formData.tournamentFormat}
                     onChange={(e) => setFormData({ ...formData, tournamentFormat: e.target.value as 'ROUND_ROBIN' | 'KNOCKOUT' | 'HYBRID' })}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 text-gray-900"
                     required
                   >
                     <option value="ROUND_ROBIN">Todos contra todos</option>
@@ -470,7 +507,7 @@ export default function CreateLeague() {
                     id="registrationStart"
                     value={formData.registrationStart}
                     onChange={(e) => setFormData({ ...formData, registrationStart: e.target.value })}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 text-gray-900"
                     required
                   />
                 </div>
@@ -484,7 +521,7 @@ export default function CreateLeague() {
                     id="registrationEnd"
                     value={formData.registrationEnd}
                     onChange={(e) => setFormData({ ...formData, registrationEnd: e.target.value })}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 text-gray-900"
                     required
                   />
                 </div>
@@ -498,7 +535,7 @@ export default function CreateLeague() {
                     id="leagueStart"
                     value={formData.leagueStart}
                     onChange={(e) => setFormData({ ...formData, leagueStart: e.target.value })}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 text-gray-900"
                     required
                   />
                 </div>
@@ -512,7 +549,7 @@ export default function CreateLeague() {
                     id="leagueEnd"
                     value={formData.leagueEnd}
                     onChange={(e) => setFormData({ ...formData, leagueEnd: e.target.value })}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 text-gray-900"
                     required
                   />
                 </div>
@@ -533,7 +570,7 @@ export default function CreateLeague() {
                     min="0"
                     value={formData.pointsWin}
                     onChange={(e) => setFormData({ ...formData, pointsWin: e.target.value })}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 text-gray-900"
                     required
                   />
                 </div>
@@ -548,7 +585,7 @@ export default function CreateLeague() {
                     min="0"
                     value={formData.pointsDraw}
                     onChange={(e) => setFormData({ ...formData, pointsDraw: e.target.value })}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 text-gray-900"
                     required
                   />
                 </div>
@@ -563,7 +600,7 @@ export default function CreateLeague() {
                     min="0"
                     value={formData.pointsLoss}
                     onChange={(e) => setFormData({ ...formData, pointsLoss: e.target.value })}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 text-gray-900"
                     required
                   />
                 </div>

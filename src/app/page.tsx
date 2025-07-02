@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
+import Logo from '@/components/logo'
 
 export default function HomePage() {
   const [isLoggedIn, setIsLoggedIn] = useState(false)
@@ -52,7 +53,7 @@ export default function HomePage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center py-6">
             <div className="flex items-center">
-              <h1 className="text-2xl font-bold text-red-600">Beer Team</h1>
+              <Logo size="xl" textPosition="bottom" />
               <span className="ml-3 text-lg text-gray-700">Darts League</span>
             </div>
             <div className="flex items-center space-x-4">

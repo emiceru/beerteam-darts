@@ -158,7 +158,7 @@ export default function AdminNotifications() {
                     id="title"
                     value={title}
                     onChange={(e) => setTitle(e.target.value)}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500"
+                    className="w-full px-3 py-2 border text-gray-900 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500"
                     placeholder="Ej: ¡Nueva liga disponible!"
                     maxLength={100}
                     required
@@ -176,7 +176,7 @@ export default function AdminNotifications() {
                     value={message}
                     onChange={(e) => setMessage(e.target.value)}
                     rows={4}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500"
+                    className="w-full px-3 py-2 border text-gray-900 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500"
                     placeholder="Ej: Se ha creado una nueva liga de dardos. ¡Únete ahora!"
                     maxLength={300}
                     required
@@ -219,7 +219,7 @@ export default function AdminNotifications() {
                         <select
                           value={selectedLeague}
                           onChange={(e) => setSelectedLeague(e.target.value)}
-                          className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500"
+                          className="w-full px-3 py-2 border text-gray-900 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500"
                           required
                         >
                           <option value="">Seleccionar liga...</option>
@@ -244,7 +244,7 @@ export default function AdminNotifications() {
                     id="url"
                     value={url}
                     onChange={(e) => setUrl(e.target.value)}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500"
+                    className="w-full px-3 py-2 border text-gray-900 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500"
                     placeholder="/dashboard, /leagues/mi-liga, etc."
                   />
                   <p className="text-xs text-gray-500 mt-1">

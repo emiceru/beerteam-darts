@@ -91,9 +91,36 @@ export async function POST(request: NextRequest) {
 
     const data = validation.data
 
-    // Verificar que la temporada y tipo de competición existen
+    let seasonId = data.seasonId;
+
+    // Si se está creando una nueva temporada
+    if ((data.seasonId === 'new' || !data.seasonId) && data.newSeasonName) {
+      try {
+        // Crear nueva temporada
+        const currentYear = new Date().getFullYear();
+        const newSeason = await prisma.season.create({
+          data: {
+            name: data.newSeasonName.trim(),
+            year: currentYear,
+            startDate: new Date(data.leagueStart),
+            endDate: new Date(data.leagueEnd),
+            isActive: true,
+          }
+        });
+        
+        seasonId = newSeason.id;
+      } catch (error) {
+        console.error('Error creando nueva temporada:', error);
+        return NextResponse.json(
+          { error: 'Error creando la nueva temporada' },
+          { status: 500 }
+        );
+      }
+    }
+
+    // Verificar que la temporada (existente o recién creada) y tipo de competición existen
     const [season, competitionType] = await Promise.all([
-      prisma.season.findUnique({ where: { id: data.seasonId } }),
+      seasonId ? prisma.season.findUnique({ where: { id: seasonId } }) : null,
       prisma.competitionType.findUnique({ where: { id: data.competitionTypeId } })
     ])
 
@@ -146,7 +173,7 @@ export async function POST(request: NextRequest) {
         slug,
         description: data.description,
         rulesDescription: data.rulesDescription,
-        seasonId: data.seasonId,
+        seasonId: seasonId!,
         competitionTypeId: data.competitionTypeId,
         createdBy: user.id,
         gameMode: data.gameMode,

@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react'
 import { useParams, useRouter } from 'next/navigation'
 import Link from 'next/link'
+import Logo from '@/components/logo'
 
 interface League {
   id: string
@@ -236,7 +237,7 @@ export default function LeaguePage() {
           <div className="flex justify-between items-center py-6">
             <div className="flex items-center">
               <Link href="/" className="flex items-center">
-                <h1 className="text-2xl font-bold text-red-600">Beer Team</h1>
+                <Logo size="lg" showText={false} />
               </Link>
               <span className="mx-3 text-gray-400">/</span>
               <span className="text-lg text-gray-700">{league.name}</span>

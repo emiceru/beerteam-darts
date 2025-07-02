@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { PushNotifications } from '@/components/push-notifications'
+import Logo from '@/components/logo'
 
 interface User {
   id: string
@@ -109,7 +110,7 @@ export default function AdminDashboard() {
           <div className="flex justify-between items-center py-6">
             <div className="flex items-center">
               <Link href="/admin" className="flex items-center">
-                <h1 className="text-2xl font-bold text-red-600">Beer Team</h1>
+                <Logo size="lg" showText={false} />
                 <span className="ml-3 text-lg text-gray-700">Admin Panel</span>
               </Link>
             </div>

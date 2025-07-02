@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
+import Logo from '@/components/logo'
 
 interface User {
   id: string
@@ -225,7 +226,7 @@ export default function MatchesManagement() {
           <div className="flex justify-between items-center py-6">
             <div className="flex items-center">
               <Link href="/admin" className="flex items-center">
-                <h1 className="text-2xl font-bold text-red-600">Beer Team</h1>
+                <Logo size="lg" showText={false} />
                 <span className="ml-3 text-lg text-gray-700">Admin Panel</span>
               </Link>
               <span className="mx-3 text-gray-400">/</span>
@@ -273,7 +274,7 @@ export default function MatchesManagement() {
                   setSelectedLeague(e.target.value)
                   loadMatchesForLeague(e.target.value)
                 }}
-                className="border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-red-500 focus:border-red-500"
+                className="border text-gray-900 border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-red-500 focus:border-red-500"
               >
                 <option value="">Todas las ligas</option>
                 {leagues.map((league) => (

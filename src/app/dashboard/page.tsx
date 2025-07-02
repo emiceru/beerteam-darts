@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
+import Logo from '@/components/logo'
 
 
 interface User {
@@ -105,7 +106,7 @@ export default function DashboardPage() {
           <div className="flex justify-between items-center py-6">
             <div className="flex items-center">
               <Link href="/dashboard" className="flex items-center">
-                <h1 className="text-2xl font-bold text-red-600">Beer Team</h1>
+                <Logo size="lg" showText={false} />
                 <span className="ml-3 text-lg text-gray-700">Dashboard</span>
               </Link>
             </div>

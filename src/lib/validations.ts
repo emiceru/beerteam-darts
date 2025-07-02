@@ -69,7 +69,8 @@ const leagueBaseSchema = z.object({
   description: z.string().max(500, 'La descripción es demasiado larga').optional(),
   rulesDescription: z.string().min(10, 'Describe las reglas de la liga').max(5000, 'La descripción de reglas es demasiado larga'),
   competitionTypeId: z.string().min(1, 'Tipo de competición requerido'),
-  seasonId: z.string().min(1, 'Temporada requerida'),
+  seasonId: z.string().nullable().optional(),
+  newSeasonName: z.string().min(3, 'El nombre de la temporada debe tener al menos 3 caracteres').max(100, 'El nombre es demasiado largo').optional(),
   gameMode: z.enum(['INDIVIDUAL', 'PAIRS', 'MIXED'], {
     errorMap: () => ({ message: 'Modalidad de juego inválida' }),
   }),
@@ -93,17 +94,27 @@ const leagueBaseSchema = z.object({
   trackTime: z.boolean(),
 });
 
-export const createLeagueSchema = leagueBaseSchema.refine((data) => {
-  const regStart = new Date(data.registrationStart);
-  const regEnd = new Date(data.registrationEnd);
-  const leagueStart = new Date(data.leagueStart);
-  const leagueEnd = new Date(data.leagueEnd);
-  
-  return regStart < regEnd && regEnd <= leagueStart && leagueStart < leagueEnd;
-}, {
-  message: 'Las fechas deben estar en orden cronológico correcto',
-  path: ['registrationEnd'],
-});
+export const createLeagueSchema = leagueBaseSchema
+  .refine((data) => {
+    // Debe tener una temporada existente O un nombre para nueva temporada
+    return (data.seasonId && data.seasonId !== 'new' && data.seasonId.trim() !== '') || 
+           (data.seasonId === 'new' && data.newSeasonName && data.newSeasonName.trim() !== '') ||
+           (!data.seasonId && data.newSeasonName && data.newSeasonName.trim() !== '');
+  }, {
+    message: 'Debes seleccionar una temporada existente o crear una nueva',
+    path: ['seasonId'],
+  })
+  .refine((data) => {
+    const regStart = new Date(data.registrationStart);
+    const regEnd = new Date(data.registrationEnd);
+    const leagueStart = new Date(data.leagueStart);
+    const leagueEnd = new Date(data.leagueEnd);
+    
+    return regStart < regEnd && regEnd <= leagueStart && leagueStart < leagueEnd;
+  }, {
+    message: 'Las fechas deben estar en orden cronológico correcto',
+    path: ['registrationEnd'],
+  });
 
 export const updateLeagueSchema = leagueBaseSchema.partial().extend({
   id: z.string().min(1, 'ID de liga requerido'),

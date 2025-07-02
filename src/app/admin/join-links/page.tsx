@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
+import Logo from '@/components/logo'
 
 interface User {
   id: string
@@ -197,7 +198,7 @@ export default function JoinLinksManagement() {
           <div className="flex justify-between items-center py-6">
             <div className="flex items-center">
               <Link href="/admin" className="flex items-center">
-                <h1 className="text-2xl font-bold text-red-600">Beer Team</h1>
+                <Logo size="lg" showText={false} />
                 <span className="ml-3 text-lg text-gray-700">Enlaces de Inscripción</span>
               </Link>
             </div>
@@ -290,7 +291,7 @@ export default function JoinLinksManagement() {
                       <select
                         value={createForm.leagueId}
                         onChange={(e) => setCreateForm({ ...createForm, leagueId: e.target.value })}
-                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                        className="w-full px-3 py-2 border text-gray-900 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                         required
                       >
                         <option value="">Seleccionar liga</option>
@@ -310,7 +311,7 @@ export default function JoinLinksManagement() {
                         type="datetime-local"
                         value={createForm.expiresAt}
                         onChange={(e) => setCreateForm({ ...createForm, expiresAt: e.target.value })}
-                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                        className="w-full px-3 py-2 border text-gray-900 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                       />
                     </div>
 
@@ -323,7 +324,7 @@ export default function JoinLinksManagement() {
                         min="1"
                         value={createForm.maxUses}
                         onChange={(e) => setCreateForm({ ...createForm, maxUses: e.target.value })}
-                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                        className="w-full px-3 py-2 border text-gray-900 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                         placeholder="Ilimitado"
                       />
                     </div>
