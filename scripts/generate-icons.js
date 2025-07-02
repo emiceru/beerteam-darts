@@ -6,27 +6,27 @@ const path = require('path');
 const iconSizes = [72, 96, 128, 144, 152, 192, 384, 512];
 
 // Directorios
-const inputSvg = path.join(__dirname, '../public/favicon.svg');
+const inputLogo = path.join(__dirname, '../public/logo.png');
 const outputDir = path.join(__dirname, '../public');
 
 async function generateIcons() {
   console.log('🎯 Generando iconos PWA para Beer Team Darts...\n');
 
   try {
-    // Verificar que el archivo SVG existe
-    if (!fs.existsSync(inputSvg)) {
-      throw new Error('Archivo favicon.svg no encontrado');
+    // Verificar que el archivo logo.png existe
+    if (!fs.existsSync(inputLogo)) {
+      throw new Error('Archivo logo.png no encontrado en /public/');
     }
 
     // Crear iconos para cada tamaño
     for (const size of iconSizes) {
       const outputPath = path.join(outputDir, `icon-${size}x${size}.png`);
       
-      await sharp(inputSvg)
+      await sharp(inputLogo)
         .resize(size, size, {
           kernel: sharp.kernel.lanczos3,
           fit: 'contain',
-          background: { r: 220, g: 20, b: 60, alpha: 1 } // #DC143C
+          background: { r: 255, g: 255, b: 255, alpha: 0 } // Transparente
         })
         .png({ quality: 90, compressionLevel: 9 })
         .toFile(outputPath);
@@ -35,12 +35,12 @@ async function generateIcons() {
     }
 
     // Generar favicon.ico tradicional
-    await sharp(inputSvg)
+    await sharp(inputLogo)
       .resize(32, 32)
       .png()
       .toFile(path.join(outputDir, 'favicon-32x32.png'));
     
-    await sharp(inputSvg)
+    await sharp(inputLogo)
       .resize(16, 16)
       .png()
       .toFile(path.join(outputDir, 'favicon-16x16.png'));
@@ -49,16 +49,24 @@ async function generateIcons() {
     console.log('✅ Generado: favicon-16x16.png');
 
     // Generar icono Apple Touch
-    await sharp(inputSvg)
+    await sharp(inputLogo)
       .resize(180, 180, {
         kernel: sharp.kernel.lanczos3,
         fit: 'contain',
-        background: { r: 220, g: 20, b: 60, alpha: 1 }
+        background: { r: 255, g: 255, b: 255, alpha: 0 }
       })
       .png({ quality: 90 })
       .toFile(path.join(outputDir, 'apple-touch-icon.png'));
 
     console.log('✅ Generado: apple-touch-icon.png');
+
+    // Crear favicon.svg a partir del PNG (para browsers modernos)
+    await sharp(inputLogo)
+      .resize(512, 512)
+      .png()
+      .toFile(path.join(outputDir, 'favicon.svg.png'));
+
+    console.log('✅ Generado: favicon base');
 
     console.log('\n🎉 ¡Todos los iconos PWA generados exitosamente!');
     console.log('📝 Archivos creados en /public/');
