@@ -85,6 +85,7 @@ export default function Header({ title, subtitle }: HeaderProps) {
 
   return (
     <header className="bg-gradient-to-r from-primary-600 to-primary-700 shadow-lg">
+      {/* Header fucsia Beer Team */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center py-4">
           {/* Logo y título */}
