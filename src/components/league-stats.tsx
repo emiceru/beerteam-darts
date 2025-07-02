@@ -150,16 +150,16 @@ export default function LeagueStats({ leagueId }: LeagueStatsProps) {
   return (
     <div className="space-y-6">
       {/* Header de la liga */}
-      <div className="bg-white rounded-lg shadow-md p-6">
-        <div className="flex items-center justify-between">
-          <div>
-            <h1 className="text-2xl font-bold text-gray-900">{stats.league.name}</h1>
-            <p className="text-gray-600">{stats.league.description}</p>
-            <div className="flex items-center space-x-4 mt-2">
+      <div className="bg-white rounded-lg shadow-md p-4 sm:p-6">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+          <div className="flex-1">
+            <h1 className="text-xl sm:text-2xl font-bold text-gray-900">{stats.league.name}</h1>
+            <p className="text-gray-600 text-sm sm:text-base">{stats.league.description}</p>
+            <div className="flex flex-col sm:flex-row sm:items-center sm:space-x-4 mt-2 gap-2 sm:gap-0">
               <span className="text-sm text-gray-500">
                 {stats.league.competitionType} • {stats.league.season}
               </span>
-              <span className={`px-2 py-1 rounded-full text-xs font-semibold ${
+              <span className={`px-2 py-1 rounded-full text-xs font-semibold self-start ${
                 stats.league.status === 'ACTIVE' ? 'bg-green-100 text-green-800' :
                 stats.league.status === 'FINISHED' ? 'bg-gray-100 text-gray-800' :
                 'bg-yellow-100 text-yellow-800'
@@ -168,8 +168,8 @@ export default function LeagueStats({ leagueId }: LeagueStatsProps) {
               </span>
             </div>
           </div>
-          <div className="text-right">
-            <p className="text-3xl font-bold text-primary-600">{stats.overview.completionRate.toFixed(1)}%</p>
+          <div className="text-center sm:text-right bg-gray-50 sm:bg-transparent p-4 sm:p-0 rounded-lg sm:rounded-none">
+            <p className="text-2xl sm:text-3xl font-bold text-primary-600">{stats.overview.completionRate.toFixed(1)}%</p>
             <p className="text-sm text-gray-600">Completitud</p>
           </div>
         </div>
@@ -178,12 +178,12 @@ export default function LeagueStats({ leagueId }: LeagueStatsProps) {
       {/* Navegación por pestañas */}
       <div className="bg-white rounded-lg shadow-md">
         <div className="border-b border-gray-200">
-          <nav className="-mb-px flex">
+          <nav className="-mb-px flex flex-wrap sm:flex-nowrap">
             {tabs.map((tab) => (
               <button
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id)}
-                className={`py-2 px-6 text-sm font-medium border-b-2 ${
+                className={`flex-1 py-3 px-2 sm:px-6 text-xs sm:text-sm font-medium border-b-2 text-center ${
                   activeTab === tab.id
                     ? 'border-primary-500 text-primary-600'
                     : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
@@ -195,28 +195,28 @@ export default function LeagueStats({ leagueId }: LeagueStatsProps) {
           </nav>
         </div>
 
-        <div className="p-6">
+        <div className="p-4 sm:p-6">
           {/* Pestaña Overview */}
           {activeTab === 'overview' && (
-            <div className="space-y-6">
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                <div className="bg-gray-50 rounded-lg p-4">
-                  <h3 className="text-lg font-semibold text-gray-900 mb-2">Participantes</h3>
-                  <p className="text-3xl font-bold text-blue-600">{stats.overview.totalParticipants}</p>
+            <div className="space-y-4 sm:space-y-6">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
+                <div className="bg-gray-50 rounded-lg p-3 sm:p-4">
+                  <h3 className="text-base sm:text-lg font-semibold text-gray-900 mb-2">Participantes</h3>
+                  <p className="text-2xl sm:text-3xl font-bold text-blue-600">{stats.overview.totalParticipants}</p>
                 </div>
-                <div className="bg-gray-50 rounded-lg p-4">
-                  <h3 className="text-lg font-semibold text-gray-900 mb-2">Partidos</h3>
-                  <p className="text-3xl font-bold text-green-600">{stats.overview.totalMatches}</p>
-                  <p className="text-sm text-gray-600">
+                <div className="bg-gray-50 rounded-lg p-3 sm:p-4">
+                  <h3 className="text-base sm:text-lg font-semibold text-gray-900 mb-2">Partidos</h3>
+                  <p className="text-2xl sm:text-3xl font-bold text-green-600">{stats.overview.totalMatches}</p>
+                  <p className="text-xs sm:text-sm text-gray-600">
                     {stats.overview.completedMatches} completados, {stats.overview.pendingMatches} pendientes
                   </p>
                 </div>
-                <div className="bg-gray-50 rounded-lg p-4">
-                  <h3 className="text-lg font-semibold text-gray-900 mb-2">Promedio por Jugador</h3>
-                  <p className="text-3xl font-bold text-purple-600">
+                <div className="bg-gray-50 rounded-lg p-3 sm:p-4 sm:col-span-2 lg:col-span-1">
+                  <h3 className="text-base sm:text-lg font-semibold text-gray-900 mb-2">Promedio por Jugador</h3>
+                  <p className="text-2xl sm:text-3xl font-bold text-purple-600">
                     {stats.overview.averageMatchesPerPlayer.toFixed(1)}
                   </p>
-                  <p className="text-sm text-gray-600">partidos por jugador</p>
+                  <p className="text-xs sm:text-sm text-gray-600">partidos por jugador</p>
                 </div>
               </div>
 
@@ -237,18 +237,20 @@ export default function LeagueStats({ leagueId }: LeagueStatsProps) {
 
           {/* Pestaña Rankings */}
           {activeTab === 'rankings' && (
-            <div className="space-y-6">
-              <div className="grid grid-cols-1 xl:grid-cols-2 gap-4 sm:gap-6">
+            <div className="space-y-4 sm:space-y-6">
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
                 <div>
-                  <h3 className="text-lg font-semibold text-gray-900 mb-4">Top por Victorias</h3>
+                  <h3 className="text-base sm:text-lg font-semibold text-gray-900 mb-3 sm:mb-4">Top por Victorias</h3>
                   <div className="space-y-2">
                     {stats.rankings.topByWins.map((player, index) => (
-                      <div key={player.id} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
-                        <div className="flex items-center space-x-3">
-                          <span className="font-bold text-lg">{index + 1}</span>
-                          <span className="font-medium">{player.name}</span>
+                      <div key={player.id} className="flex items-center justify-between p-2 sm:p-3 bg-gray-50 rounded-lg">
+                        <div className="flex items-center space-x-2 sm:space-x-3 min-w-0 flex-1">
+                          <span className="font-bold text-base sm:text-lg">{index + 1}</span>
+                          <span className="font-medium text-sm sm:text-base truncate">{player.name}</span>
                         </div>
-                        <span className="font-bold text-green-600">{player.wins} victorias</span>
+                        <span className="font-bold text-green-600 text-sm sm:text-base whitespace-nowrap ml-2">
+                          {player.wins} <span className="hidden sm:inline">victorias</span><span className="sm:hidden">V</span>
+                        </span>
                       </div>
                     ))}
                   </div>
@@ -304,18 +306,19 @@ export default function LeagueStats({ leagueId }: LeagueStatsProps) {
 
           {/* Pestaña Activity */}
           {activeTab === 'activity' && (
-            <div className="space-y-6">
+            <div className="space-y-4 sm:space-y-6">
               <div>
-                <h3 className="text-lg font-semibold text-gray-900 mb-4">Actividad Diaria (Últimos 30 días)</h3>
-                <div className="h-48 sm:h-64">
+                <h3 className="text-base sm:text-lg font-semibold text-gray-900 mb-3 sm:mb-4">Actividad Diaria (Últimos 30 días)</h3>
+                <div className="h-40 sm:h-48 lg:h-64 bg-gray-50 rounded-lg p-2 sm:p-4">
                   <ResponsiveContainer width="100%" height="100%">
                     <LineChart data={stats.activity.dailyActivity}>
                       <CartesianGrid strokeDasharray="3 3" />
                       <XAxis 
                         dataKey="date" 
                         tickFormatter={(date) => format(new Date(date), 'dd/MM')}
+                        tick={{ fontSize: 12 }}
                       />
-                      <YAxis />
+                      <YAxis tick={{ fontSize: 12 }} />
                       <Tooltip 
                         labelFormatter={(date) => format(new Date(date), 'dd/MM/yyyy')}
                         formatter={(value: number) => [value, 'Partidos']}
@@ -323,7 +326,7 @@ export default function LeagueStats({ leagueId }: LeagueStatsProps) {
                       <Line 
                         type="monotone" 
                         dataKey="matches" 
-                        stroke="#DC143C" 
+                        stroke="#ec4899" 
                         strokeWidth={2}
                       />
                     </LineChart>
@@ -332,15 +335,15 @@ export default function LeagueStats({ leagueId }: LeagueStatsProps) {
               </div>
 
               <div>
-                <h3 className="text-lg font-semibold text-gray-900 mb-4">Actividad por Hora</h3>
-                <div className="h-48 sm:h-64">
+                <h3 className="text-base sm:text-lg font-semibold text-gray-900 mb-3 sm:mb-4">Actividad por Hora</h3>
+                <div className="h-40 sm:h-48 lg:h-64 bg-gray-50 rounded-lg p-2 sm:p-4">
                   <ResponsiveContainer width="100%" height="100%">
                     <BarChart data={stats.activity.activityByHour}>
                       <CartesianGrid strokeDasharray="3 3" />
-                      <XAxis dataKey="hour" />
-                      <YAxis />
+                      <XAxis dataKey="hour" tick={{ fontSize: 12 }} />
+                      <YAxis tick={{ fontSize: 12 }} />
                       <Tooltip formatter={(value: number) => [value, 'Partidos']} />
-                      <Bar dataKey="matches" fill="#FFD700" />
+                      <Bar dataKey="matches" fill="#fbbf24" />
                     </BarChart>
                   </ResponsiveContainer>
                 </div>
