@@ -122,16 +122,16 @@ export default function LeagueStats({ leagueId }: LeagueStatsProps) {
   if (loading) {
     return (
       <div className="flex items-center justify-center p-8">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-red-600"></div>
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600"></div>
       </div>
     );
   }
 
   if (error) {
     return (
-      <div className="bg-red-50 border border-red-200 rounded-lg p-4">
-        <h3 className="text-red-800 font-semibold">Error</h3>
-        <p className="text-red-700">{error}</p>
+      <div className="bg-primary-50 border border-primary-200 rounded-lg p-4">
+        <h3 className="text-primary-800 font-semibold">Error</h3>
+        <p className="text-primary-700">{error}</p>
       </div>
     );
   }
@@ -169,7 +169,7 @@ export default function LeagueStats({ leagueId }: LeagueStatsProps) {
             </div>
           </div>
           <div className="text-right">
-            <p className="text-3xl font-bold text-red-600">{stats.overview.completionRate.toFixed(1)}%</p>
+            <p className="text-3xl font-bold text-primary-600">{stats.overview.completionRate.toFixed(1)}%</p>
             <p className="text-sm text-gray-600">Completitud</p>
           </div>
         </div>
@@ -185,7 +185,7 @@ export default function LeagueStats({ leagueId }: LeagueStatsProps) {
                 onClick={() => setActiveTab(tab.id)}
                 className={`py-2 px-6 text-sm font-medium border-b-2 ${
                   activeTab === tab.id
-                    ? 'border-red-500 text-red-600'
+                    ? 'border-primary-500 text-primary-600'
                     : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
                 }`}
               >
@@ -224,7 +224,7 @@ export default function LeagueStats({ leagueId }: LeagueStatsProps) {
                 <h3 className="text-lg font-semibold text-gray-900 mb-4">Progreso de la Liga</h3>
                 <div className="w-full bg-gray-200 rounded-full h-4">
                   <div 
-                    className="bg-red-600 h-4 rounded-full transition-all duration-300"
+                    className="bg-primary-600 h-4 rounded-full transition-all duration-300"
                     style={{ width: `${stats.overview.completionRate}%` }}
                   ></div>
                 </div>
@@ -293,7 +293,7 @@ export default function LeagueStats({ leagueId }: LeagueStatsProps) {
                           <span className="font-bold text-lg">{index + 1}</span>
                           <span className="font-medium">{player.name}</span>
                         </div>
-                        <span className="font-bold text-red-600">{player.highestScore}</span>
+                        <span className="font-bold text-primary-600">{player.highestScore}</span>
                       </div>
                     ))}
                   </div>
@@ -382,7 +382,7 @@ export default function LeagueStats({ leagueId }: LeagueStatsProps) {
                 </div>
                 <div className="bg-gray-50 rounded-lg p-4">
                   <h4 className="font-semibold text-gray-900 mb-2">Puntuación Más Alta</h4>
-                  <p className="text-2xl font-bold text-red-600">
+                  <p className="text-2xl font-bold text-primary-600">
                     {stats.analysis.highestScore}
                   </p>
                 </div>

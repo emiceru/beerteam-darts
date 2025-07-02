@@ -105,7 +105,7 @@ export default function PublicLeagueMatchesPage() {
       case 'PENDING':
         return 'bg-yellow-100 text-yellow-800';
       case 'CANCELLED':
-        return 'bg-red-100 text-red-800';
+        return 'bg-primary-100 text-primary-800';
       default:
         return 'bg-gray-100 text-gray-800';
     }
@@ -139,7 +139,7 @@ export default function PublicLeagueMatchesPage() {
       <div className="min-h-screen bg-gray-50 py-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-red-600 mx-auto"></div>
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600 mx-auto"></div>
             <p className="mt-4 text-gray-600">Cargando partidos...</p>
           </div>
         </div>
@@ -157,7 +157,7 @@ export default function PublicLeagueMatchesPage() {
             <p className="text-gray-600 mb-6">La liga solicitada no existe o no está disponible públicamente.</p>
             <Link
               href="/public"
-              className="bg-red-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-red-700 transition-colors"
+              className="bg-primary-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-primary-700 transition-colors"
             >
               ← Volver a Competiciones
             </Link>
@@ -176,14 +176,14 @@ export default function PublicLeagueMatchesPage() {
             <div className="flex-1 min-w-0">
               <Link
                 href="/public"
-                className="text-red-100 hover:text-white text-sm mb-2 inline-flex items-center transition-colors"
+                className="text-primary-100 hover:text-white text-sm mb-2 inline-flex items-center transition-colors"
               >
                 ← Volver a Competiciones
               </Link>
               <h1 className="text-2xl sm:text-3xl font-bold text-white mb-2 truncate">
                 ⚽ Partidos - {league.name}
               </h1>
-              <div className="flex flex-wrap items-center gap-2 sm:gap-4 text-red-100">
+              <div className="flex flex-wrap items-center gap-2 sm:gap-4 text-primary-100">
                 <span className="text-sm sm:text-base">{league.season}</span>
                 <span className="hidden sm:inline">•</span>
                 <span className="text-sm sm:text-base">{league.competitionType}</span>
@@ -192,7 +192,7 @@ export default function PublicLeagueMatchesPage() {
             <div className="mt-4 sm:mt-0 sm:ml-4 flex flex-col sm:flex-row gap-2">
               <Link
                 href={`/public/leagues/${leagueId}`}
-                className="bg-white text-red-600 px-4 py-2 rounded-lg text-sm font-medium hover:bg-gray-100 transition-colors text-center"
+                className="bg-white text-primary-600 px-4 py-2 rounded-lg text-sm font-medium hover:bg-gray-100 transition-colors text-center"
               >
                 📊 Ver Estadísticas
               </Link>
@@ -217,7 +217,7 @@ export default function PublicLeagueMatchesPage() {
                 onClick={() => setFilter(option.value)}
                 className={`px-3 sm:px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
                   filter === option.value
-                    ? 'bg-red-600 text-white'
+                    ? 'bg-primary-600 text-white'
                     : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
                 }`}
               >

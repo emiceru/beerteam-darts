@@ -80,7 +80,7 @@ export default function PublicLeagueStatsPage() {
       <div className="min-h-screen bg-gray-50 py-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-red-600 mx-auto"></div>
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600 mx-auto"></div>
             <p className="mt-4 text-gray-600">Cargando estadísticas...</p>
           </div>
         </div>
@@ -98,7 +98,7 @@ export default function PublicLeagueStatsPage() {
             <p className="text-gray-600 mb-6">La liga solicitada no existe o no está disponible públicamente.</p>
             <Link
               href="/public"
-              className="bg-red-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-red-700 transition-colors"
+              className="bg-primary-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-primary-700 transition-colors"
             >
               ← Volver a Competiciones
             </Link>
@@ -117,14 +117,14 @@ export default function PublicLeagueStatsPage() {
             <div className="flex-1 min-w-0">
               <Link
                 href="/public"
-                className="text-red-100 hover:text-white text-sm mb-2 inline-flex items-center transition-colors"
+                className="text-primary-100 hover:text-white text-sm mb-2 inline-flex items-center transition-colors"
               >
                 ← Volver a Competiciones
               </Link>
               <h1 className="text-2xl sm:text-3xl font-bold text-white mb-2 truncate">
                 📊 {league.name}
               </h1>
-              <div className="flex flex-wrap items-center gap-2 sm:gap-4 text-red-100">
+              <div className="flex flex-wrap items-center gap-2 sm:gap-4 text-primary-100">
                 <span className="text-sm sm:text-base">{league.season}</span>
                 <span className="hidden sm:inline">•</span>
                 <span className="text-sm sm:text-base">{league.competitionType}</span>
@@ -137,7 +137,7 @@ export default function PublicLeagueStatsPage() {
             <div className="mt-4 sm:mt-0 sm:ml-4 flex flex-col sm:flex-row gap-2">
               <Link
                 href={`/public/leagues/${leagueId}/matches`}
-                className="bg-white text-red-600 px-4 py-2 rounded-lg text-sm font-medium hover:bg-gray-100 transition-colors text-center"
+                className="bg-white text-primary-600 px-4 py-2 rounded-lg text-sm font-medium hover:bg-gray-100 transition-colors text-center"
               >
                 ⚽ Ver Partidos
               </Link>
@@ -145,7 +145,7 @@ export default function PublicLeagueStatsPage() {
           </div>
           
           {league.description && (
-            <p className="text-red-100 mt-4 text-sm sm:text-base max-w-3xl">
+            <p className="text-primary-100 mt-4 text-sm sm:text-base max-w-3xl">
               {league.description}
             </p>
           )}

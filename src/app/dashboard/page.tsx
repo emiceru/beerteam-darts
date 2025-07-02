@@ -91,7 +91,7 @@ export default function DashboardPage() {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gray-50">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-red-600 mx-auto"></div>
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600 mx-auto"></div>
           <p className="mt-4 text-gray-600">Cargando...</p>
         </div>
       </div>
@@ -114,7 +114,7 @@ export default function DashboardPage() {
               <span className="text-gray-700">Hola, {user?.name}</span>
               <button
                 onClick={logout}
-                className="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg transition-colors"
+                className="bg-primary-600 hover:bg-primary-700 text-white px-4 py-2 rounded-lg transition-colors"
               >
                 Cerrar Sesión
               </button>
@@ -167,7 +167,7 @@ export default function DashboardPage() {
                     </p>
                     <Link
                       href="/leagues"
-                      className="bg-red-600 hover:bg-red-700 text-white px-6 py-2 rounded-lg transition-colors inline-block"
+                      className="bg-primary-600 hover:bg-primary-700 text-white px-6 py-2 rounded-lg transition-colors inline-block"
                     >
                       Explorar Ligas
                     </Link>
@@ -199,7 +199,7 @@ export default function DashboardPage() {
                           </div>
                           <Link
                             href={`/leagues/${league.slug}`}
-                            className="text-red-600 hover:text-red-700 text-sm font-medium"
+                            className="text-primary-600 hover:text-primary-700 text-sm font-medium"
                           >
                             Ver detalles →
                           </Link>
@@ -243,7 +243,7 @@ export default function DashboardPage() {
               <div className="space-y-3">
                 <Link
                   href="/leagues"
-                  className="block w-full bg-red-600 hover:bg-red-700 text-white text-center py-2 px-4 rounded-lg transition-colors"
+                  className="block w-full bg-primary-600 hover:bg-primary-700 text-white text-center py-2 px-4 rounded-lg transition-colors"
                 >
                   Explorar Ligas
                 </Link>

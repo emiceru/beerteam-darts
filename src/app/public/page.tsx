@@ -80,7 +80,7 @@ export default function PublicLeaguesPage() {
       <div className="min-h-screen bg-gray-50 py-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-red-600 mx-auto"></div>
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600 mx-auto"></div>
             <p className="mt-4 text-gray-600">Cargando competiciones...</p>
           </div>
         </div>
@@ -97,7 +97,7 @@ export default function PublicLeaguesPage() {
             <h1 className="text-3xl sm:text-4xl font-bold text-white mb-4">
               🎯 Beer Team Darts - Competiciones Públicas
             </h1>
-            <p className="text-xl text-red-100 max-w-3xl mx-auto">
+            <p className="text-xl text-primary-100 max-w-3xl mx-auto">
               Explora las estadísticas, resultados y fechas de todas nuestras competiciones de dardos
             </p>
           </div>
@@ -120,7 +120,7 @@ export default function PublicLeaguesPage() {
                 onClick={() => setFilter(option.value)}
                 className={`px-3 sm:px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
                   filter === option.value
-                    ? 'bg-red-600 text-white'
+                    ? 'bg-primary-600 text-white'
                     : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
                 }`}
               >
@@ -190,7 +190,7 @@ export default function PublicLeaguesPage() {
                   <div className="flex flex-col sm:flex-row gap-2">
                     <Link
                       href={`/public/leagues/${league.id}`}
-                      className="flex-1 bg-red-600 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-red-700 transition-colors text-center"
+                      className="flex-1 bg-primary-600 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-primary-700 transition-colors text-center"
                     >
                       📊 Ver Estadísticas
                     </Link>

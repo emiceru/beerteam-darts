@@ -109,7 +109,7 @@ export default function AdminNotifications() {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-red-600 mx-auto"></div>
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600 mx-auto"></div>
           <p className="text-gray-600 mt-4">Verificando permisos...</p>
         </div>
       </div>
@@ -158,7 +158,7 @@ export default function AdminNotifications() {
                     id="title"
                     value={title}
                     onChange={(e) => setTitle(e.target.value)}
-                    className="w-full px-3 py-2 border text-gray-900 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500"
+                    className="w-full px-3 py-2 border text-gray-900 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
                     placeholder="Ej: ¡Nueva liga disponible!"
                     maxLength={100}
                     required
@@ -176,7 +176,7 @@ export default function AdminNotifications() {
                     value={message}
                     onChange={(e) => setMessage(e.target.value)}
                     rows={4}
-                    className="w-full px-3 py-2 border text-gray-900 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500"
+                    className="w-full px-3 py-2 border text-gray-900 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
                     placeholder="Ej: Se ha creado una nueva liga de dardos. ¡Únete ahora!"
                     maxLength={300}
                     required
@@ -219,7 +219,7 @@ export default function AdminNotifications() {
                         <select
                           value={selectedLeague}
                           onChange={(e) => setSelectedLeague(e.target.value)}
-                          className="w-full px-3 py-2 border text-gray-900 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500"
+                          className="w-full px-3 py-2 border text-gray-900 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500"
                           required
                         >
                           <option value="">Seleccionar liga...</option>
@@ -244,7 +244,7 @@ export default function AdminNotifications() {
                     id="url"
                     value={url}
                     onChange={(e) => setUrl(e.target.value)}
-                    className="w-full px-3 py-2 border text-gray-900 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500"
+                    className="w-full px-3 py-2 border text-gray-900 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
                     placeholder="/dashboard, /leagues/mi-liga, etc."
                   />
                   <p className="text-xs text-gray-500 mt-1">
@@ -256,7 +256,7 @@ export default function AdminNotifications() {
                 <button
                   type="submit"
                   disabled={isLoading || !title.trim() || !message.trim()}
-                  className="w-full bg-red-600 hover:bg-red-700 disabled:bg-gray-400 text-white py-3 px-4 rounded-lg font-medium transition-colors"
+                  className="w-full bg-primary-600 hover:bg-primary-700 disabled:bg-gray-400 text-white py-3 px-4 rounded-lg font-medium transition-colors"
                 >
                   {isLoading ? 'Enviando...' : '📤 Enviar Notificación'}
                 </button>
@@ -271,7 +271,7 @@ export default function AdminNotifications() {
               <h3 className="text-lg font-semibold text-gray-900 mb-4">👀 Vista Previa</h3>
               <div className="border border-gray-200 rounded-lg p-4 bg-gray-50">
                 <div className="flex items-start space-x-3">
-                  <div className="w-8 h-8 bg-red-600 rounded flex items-center justify-center">
+                  <div className="w-8 h-8 bg-primary-600 rounded flex items-center justify-center">
                     <span className="text-white text-xs">🎯</span>
                   </div>
                   <div className="flex-1">

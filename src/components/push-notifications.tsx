@@ -201,7 +201,7 @@ export function PushNotifications({ userId, className = '' }: PushNotificationsP
       )}
       
       {permission === 'denied' && (
-        <p className="text-xs text-red-600 mt-1">
+        <p className="text-xs text-primary-600 mt-1">
           Las notificaciones están bloqueadas. Habilítalas en la configuración del navegador.
         </p>
       )}

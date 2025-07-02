@@ -59,7 +59,7 @@ export default function Logo({
         <LogoImage />
         {size !== 'sm' && (
           <div className="text-center">
-            <h1 className={`font-bold text-red-600 ${textSizeClasses[size]}`}>Beer Team</h1>
+            <h1 className={`font-bold text-primary-600 ${textSizeClasses[size]}`}>Beer Team</h1>
             <p className="text-gray-600 text-sm">Liga de Dardos</p>
           </div>
         )}
@@ -72,7 +72,7 @@ export default function Logo({
       <LogoImage />
       {size !== 'sm' && (
         <div>
-          <h1 className={`font-bold text-red-600 ${textSizeClasses[size]}`}>Beer Team</h1>
+          <h1 className={`font-bold text-primary-600 ${textSizeClasses[size]}`}>Beer Team</h1>
           <p className="text-gray-600 text-sm">Liga de Dardos</p>
         </div>
       )}

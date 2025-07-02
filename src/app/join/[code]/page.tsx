@@ -148,7 +148,7 @@ export default function JoinPage() {
   if (loading) {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-red-600"></div>
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary-600"></div>
       </div>
     )
   }
@@ -157,14 +157,14 @@ export default function JoinPage() {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center px-4">
         <div className="max-w-md w-full bg-white rounded-lg shadow-lg p-6 text-center">
-          <div className="text-red-600 text-5xl mb-4">⚠️</div>
+          <div className="text-primary-600 text-5xl mb-4">⚠️</div>
           <h1 className="text-2xl font-bold text-gray-900 mb-2">
             Enlace no válido
           </h1>
           <p className="text-gray-600 mb-6">{error}</p>
           <Link
             href="/"
-            className="inline-flex items-center px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors"
+            className="inline-flex items-center px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors"
           >
             Volver al inicio
           </Link>
@@ -185,7 +185,7 @@ export default function JoinPage() {
           <div className="space-y-3">
             <Link
               href="/dashboard"
-              className="block w-full px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors"
+              className="block w-full px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors"
             >
               Ir al Dashboard
             </Link>
@@ -206,7 +206,7 @@ export default function JoinPage() {
       <div className="max-w-2xl mx-auto">
         {/* Header */}
         <div className="text-center mb-8">
-          <Link href="/" className="inline-flex items-center text-red-600 hover:text-red-700 mb-4">
+          <Link href="/" className="inline-flex items-center text-primary-600 hover:text-primary-700 mb-4">
             ← Volver al inicio
           </Link>
           <h1 className="text-3xl font-bold text-gray-900 mb-2">
@@ -283,8 +283,8 @@ export default function JoinPage() {
           </h3>
 
           {error && (
-            <div className="mb-4 p-4 bg-red-50 border border-red-200 rounded-lg">
-              <p className="text-red-600 text-sm">{error}</p>
+            <div className="mb-4 p-4 bg-primary-50 border border-primary-200 rounded-lg">
+              <p className="text-primary-600 text-sm">{error}</p>
             </div>
           )}
 
@@ -298,7 +298,7 @@ export default function JoinPage() {
                 id="name"
                 value={formData.name}
                 onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                className="w-full px-3 py-2 border text-gray-900 border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500"
+                className="w-full px-3 py-2 border text-gray-900 border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
                 required
               />
             </div>
@@ -312,7 +312,7 @@ export default function JoinPage() {
                 id="email"
                 value={formData.email}
                 onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                className="w-full px-3 py-2 border text-gray-900 border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500"
+                className="w-full px-3 py-2 border text-gray-900 border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
                 required
               />
             </div>
@@ -323,7 +323,7 @@ export default function JoinPage() {
                 id="createAccount"
                 checked={formData.createAccount}
                 onChange={(e) => setFormData({ ...formData, createAccount: e.target.checked })}
-                className="h-4 w-4 text-red-600 focus:ring-red-500 border-gray-300 rounded"
+                className="h-4 w-4 text-primary-600 focus:ring-primary-500 border-gray-300 rounded"
               />
               <label htmlFor="createAccount" className="ml-2 block text-sm text-gray-700">
                 Crear cuenta para acceder al dashboard
@@ -340,7 +340,7 @@ export default function JoinPage() {
                   id="password"
                   value={formData.password}
                   onChange={(e) => setFormData({ ...formData, password: e.target.value })}
-                  className="w-full px-3 py-2 border text-gray-900 border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500"
+                  className="w-full px-3 py-2 border text-gray-900 border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
                   required={formData.createAccount}
                   minLength={6}
                 />
@@ -352,7 +352,7 @@ export default function JoinPage() {
               <button
                 type="submit"
                 disabled={submitting}
-                className="w-full bg-red-600 text-white py-2 px-4 rounded-lg hover:bg-red-700 focus:ring-2 focus:ring-red-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                className="w-full bg-primary-600 text-white py-2 px-4 rounded-lg hover:bg-primary-700 focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
               >
                 {submitting ? 'Inscribiendo...' : 'Inscribirse'}
               </button>

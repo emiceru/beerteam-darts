@@ -243,7 +243,7 @@ export default function CreateLeague() {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gray-50">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-red-600 mx-auto"></div>
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600 mx-auto"></div>
           <p className="mt-4 text-gray-600">Cargando formulario...</p>
         </div>
       </div>
@@ -266,7 +266,7 @@ export default function CreateLeague() {
               <span className="text-gray-700">Admin: {user?.name}</span>
               <button
                 onClick={logout}
-                className="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg transition-colors"
+                className="bg-primary-600 hover:bg-primary-700 text-white px-4 py-2 rounded-lg transition-colors"
               >
                 Cerrar Sesion
               </button>
@@ -281,7 +281,7 @@ export default function CreateLeague() {
         <nav className="flex mb-6" aria-label="Breadcrumb">
           <ol className="inline-flex items-center space-x-1 md:space-x-3">
             <li className="inline-flex items-center">
-              <Link href="/admin" className="text-gray-700 hover:text-red-600 inline-flex items-center">
+              <Link href="/admin" className="text-gray-700 hover:text-primary-600 inline-flex items-center">
                 Panel Admin
               </Link>
             </li>
@@ -296,8 +296,8 @@ export default function CreateLeague() {
 
         {/* Alerts */}
         {error && (
-          <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg">
-            <p className="text-red-600">{error}</p>
+          <div className="mb-6 p-4 bg-primary-50 border border-primary-200 rounded-lg">
+            <p className="text-primary-600">{error}</p>
           </div>
         )}
 
@@ -328,7 +328,7 @@ export default function CreateLeague() {
                     id="name"
                     value={formData.name}
                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 text-gray-900"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 text-gray-900"
                     required
                     placeholder="Ej: Liga de Dardos Primavera 2024"
                   />
@@ -342,7 +342,7 @@ export default function CreateLeague() {
                     id="seasonId"
                     value={formData.seasonId}
                     onChange={(e) => setFormData({ ...formData, seasonId: e.target.value, newSeasonName: e.target.value === 'new' ? formData.newSeasonName : '' })}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 text-gray-900"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 text-gray-900"
                   >
                     <option value="">Seleccionar temporada existente</option>
                     {seasons.map(season => (
@@ -363,7 +363,7 @@ export default function CreateLeague() {
                         id="newSeasonName"
                         value={formData.newSeasonName}
                         onChange={(e) => setFormData({ ...formData, newSeasonName: e.target.value })}
-                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 text-gray-900"
+                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 text-gray-900"
                         required={formData.seasonId === 'new'}
                         placeholder="Ej: Temporada Verano 2024"
                       />
@@ -379,7 +379,7 @@ export default function CreateLeague() {
                     id="competitionTypeId"
                     value={formData.competitionTypeId}
                     onChange={(e) => setFormData({ ...formData, competitionTypeId: e.target.value })}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 text-gray-900"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 text-gray-900"
                     required
                   >
                     <option value="">Seleccionar tipo de competicion</option>
@@ -402,7 +402,7 @@ export default function CreateLeague() {
                     max="1000"
                     value={formData.maxParticipants}
                     onChange={(e) => setFormData({ ...formData, maxParticipants: e.target.value })}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 text-gray-900"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 text-gray-900"
                     placeholder="Dejar vacio para ilimitado"
                   />
                 </div>
@@ -416,7 +416,7 @@ export default function CreateLeague() {
                     rows={3}
                     value={formData.description}
                     onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 text-gray-900"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 text-gray-900"
                     placeholder="Descripcion breve de la liga..."
                   />
                 </div>
@@ -430,7 +430,7 @@ export default function CreateLeague() {
                     rows={6}
                     value={formData.rulesDescription}
                     onChange={(e) => setFormData({ ...formData, rulesDescription: e.target.value })}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 text-gray-900"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 text-gray-900"
                     required
                     placeholder="Describe las reglas especificas de esta liga, formato de partidos, sistema de puntuacion, etc. (Markdown soportado)"
                   />
@@ -451,7 +451,7 @@ export default function CreateLeague() {
                     id="gameMode"
                     value={formData.gameMode}
                     onChange={(e) => setFormData({ ...formData, gameMode: e.target.value as 'INDIVIDUAL' | 'PAIRS' | 'MIXED' })}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 text-gray-900"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 text-gray-900"
                     required
                   >
                     <option value="INDIVIDUAL">Individual</option>
@@ -468,7 +468,7 @@ export default function CreateLeague() {
                     id="tournamentFormat"
                     value={formData.tournamentFormat}
                     onChange={(e) => setFormData({ ...formData, tournamentFormat: e.target.value as 'ROUND_ROBIN' | 'KNOCKOUT' | 'HYBRID' })}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 text-gray-900"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 text-gray-900"
                     required
                   >
                     <option value="ROUND_ROBIN">Todos contra todos</option>
@@ -484,7 +484,7 @@ export default function CreateLeague() {
                       id="autoApproveRegistrations"
                       checked={formData.autoApproveRegistrations}
                       onChange={(e) => setFormData({ ...formData, autoApproveRegistrations: e.target.checked })}
-                      className="h-4 w-4 text-red-600 focus:ring-red-500 border-gray-300 rounded"
+                      className="h-4 w-4 text-primary-600 focus:ring-primary-500 border-gray-300 rounded"
                     />
                     <label htmlFor="autoApproveRegistrations" className="ml-2 block text-sm text-gray-700">
                       Auto-aprobar inscripciones (los jugadores se unen automaticamente sin requerir aprobacion manual)
@@ -507,7 +507,7 @@ export default function CreateLeague() {
                     id="registrationStart"
                     value={formData.registrationStart}
                     onChange={(e) => setFormData({ ...formData, registrationStart: e.target.value })}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 text-gray-900"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 text-gray-900"
                     required
                   />
                 </div>
@@ -521,7 +521,7 @@ export default function CreateLeague() {
                     id="registrationEnd"
                     value={formData.registrationEnd}
                     onChange={(e) => setFormData({ ...formData, registrationEnd: e.target.value })}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 text-gray-900"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 text-gray-900"
                     required
                   />
                 </div>
@@ -535,7 +535,7 @@ export default function CreateLeague() {
                     id="leagueStart"
                     value={formData.leagueStart}
                     onChange={(e) => setFormData({ ...formData, leagueStart: e.target.value })}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 text-gray-900"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 text-gray-900"
                     required
                   />
                 </div>
@@ -549,7 +549,7 @@ export default function CreateLeague() {
                     id="leagueEnd"
                     value={formData.leagueEnd}
                     onChange={(e) => setFormData({ ...formData, leagueEnd: e.target.value })}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 text-gray-900"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 text-gray-900"
                     required
                   />
                 </div>
@@ -570,7 +570,7 @@ export default function CreateLeague() {
                     min="0"
                     value={formData.pointsWin}
                     onChange={(e) => setFormData({ ...formData, pointsWin: e.target.value })}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 text-gray-900"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 text-gray-900"
                     required
                   />
                 </div>
@@ -585,7 +585,7 @@ export default function CreateLeague() {
                     min="0"
                     value={formData.pointsDraw}
                     onChange={(e) => setFormData({ ...formData, pointsDraw: e.target.value })}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 text-gray-900"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 text-gray-900"
                     required
                   />
                 </div>
@@ -600,7 +600,7 @@ export default function CreateLeague() {
                     min="0"
                     value={formData.pointsLoss}
                     onChange={(e) => setFormData({ ...formData, pointsLoss: e.target.value })}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 text-gray-900"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 text-gray-900"
                     required
                   />
                 </div>
@@ -617,7 +617,7 @@ export default function CreateLeague() {
                     id="trackDetailedScore"
                     checked={formData.trackDetailedScore}
                     onChange={(e) => setFormData({ ...formData, trackDetailedScore: e.target.checked })}
-                    className="h-4 w-4 text-red-600 focus:ring-red-500 border-gray-300 rounded"
+                    className="h-4 w-4 text-primary-600 focus:ring-primary-500 border-gray-300 rounded"
                   />
                   <label htmlFor="trackDetailedScore" className="ml-2 block text-sm text-gray-700">
                     Registrar puntuacion detallada por leg
@@ -630,7 +630,7 @@ export default function CreateLeague() {
                     id="trackGameByGame"
                     checked={formData.trackGameByGame}
                     onChange={(e) => setFormData({ ...formData, trackGameByGame: e.target.checked })}
-                    className="h-4 w-4 text-red-600 focus:ring-red-500 border-gray-300 rounded"
+                    className="h-4 w-4 text-primary-600 focus:ring-primary-500 border-gray-300 rounded"
                   />
                   <label htmlFor="trackGameByGame" className="ml-2 block text-sm text-gray-700">
                     Registrar resultados juego por juego
@@ -643,7 +643,7 @@ export default function CreateLeague() {
                     id="trackThrowCount"
                     checked={formData.trackThrowCount}
                     onChange={(e) => setFormData({ ...formData, trackThrowCount: e.target.checked })}
-                    className="h-4 w-4 text-red-600 focus:ring-red-500 border-gray-300 rounded"
+                    className="h-4 w-4 text-primary-600 focus:ring-primary-500 border-gray-300 rounded"
                   />
                   <label htmlFor="trackThrowCount" className="ml-2 block text-sm text-gray-700">
                     Contar numero de dardos lanzados
@@ -656,7 +656,7 @@ export default function CreateLeague() {
                     id="trackTime"
                     checked={formData.trackTime}
                     onChange={(e) => setFormData({ ...formData, trackTime: e.target.checked })}
-                    className="h-4 w-4 text-red-600 focus:ring-red-500 border-gray-300 rounded"
+                    className="h-4 w-4 text-primary-600 focus:ring-primary-500 border-gray-300 rounded"
                   />
                   <label htmlFor="trackTime" className="ml-2 block text-sm text-gray-700">
                     Registrar tiempo de duracion de partidos
@@ -676,7 +676,7 @@ export default function CreateLeague() {
               <button
                 type="submit"
                 disabled={submitting}
-                className="px-6 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 focus:ring-2 focus:ring-red-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                className="px-6 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
               >
                 {submitting ? 'Creando Liga...' : 'Crear Liga'}
               </button>

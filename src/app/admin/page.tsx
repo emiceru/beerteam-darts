@@ -95,7 +95,7 @@ export default function AdminDashboard() {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gray-50">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-red-600 mx-auto"></div>
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600 mx-auto"></div>
           <p className="mt-4 text-gray-600">Cargando panel admin...</p>
         </div>
       </div>
@@ -118,7 +118,7 @@ export default function AdminDashboard() {
               <span className="text-gray-700">Admin: {user?.name}</span>
               <button
                 onClick={logout}
-                className="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg transition-colors"
+                className="bg-primary-600 hover:bg-primary-700 text-white px-4 py-2 rounded-lg transition-colors"
               >
                 Cerrar Sesión
               </button>
@@ -143,7 +143,7 @@ export default function AdminDashboard() {
         <div className="grid md:grid-cols-4 gap-6 mb-8">
           <div className="bg-white rounded-lg shadow-sm p-6">
             <div className="flex items-center">
-              <div className="w-12 h-12 bg-red-100 rounded-lg flex items-center justify-center">
+              <div className="w-12 h-12 bg-primary-100 rounded-lg flex items-center justify-center">
                 <span className="text-xl">🏆</span>
               </div>
               <div className="ml-4">
@@ -202,7 +202,7 @@ export default function AdminDashboard() {
                 <h3 className="text-lg font-semibold text-gray-900">Gestión de Ligas</h3>
                 <Link
                   href="/admin/leagues/create"
-                  className="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg text-sm transition-colors"
+                  className="bg-primary-600 hover:bg-primary-700 text-white px-4 py-2 rounded-lg text-sm transition-colors"
                 >
                   + Nueva Liga
                 </Link>
@@ -274,7 +274,7 @@ export default function AdminDashboard() {
                             </Link>
                             <Link
                               href={`/leagues/${league.slug}`}
-                              className="text-red-600 hover:text-red-700 text-sm font-medium"
+                              className="text-primary-600 hover:text-primary-700 text-sm font-medium"
                             >
                               Ver →
                             </Link>
@@ -286,7 +286,7 @@ export default function AdminDashboard() {
                       <div className="text-center pt-4">
                         <Link
                           href="/admin/leagues"
-                          className="text-red-600 hover:text-red-700 font-medium"
+                          className="text-primary-600 hover:text-primary-700 font-medium"
                         >
                           Ver todas las ligas ({leagues.length}) →
                         </Link>
@@ -306,7 +306,7 @@ export default function AdminDashboard() {
               <div className="space-y-3">
                 <Link
                   href="/admin/leagues/create"
-                  className="block w-full bg-red-600 hover:bg-red-700 text-white text-center py-2 px-4 rounded-lg transition-colors"
+                  className="block w-full bg-primary-600 hover:bg-primary-700 text-white text-center py-2 px-4 rounded-lg transition-colors"
                 >
                   Nueva Liga
                 </Link>

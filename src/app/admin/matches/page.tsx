@@ -189,7 +189,7 @@ export default function MatchesManagement() {
       'SCHEDULED': 'bg-blue-100 text-blue-800',
       'IN_PROGRESS': 'bg-yellow-100 text-yellow-800',
       'FINISHED': 'bg-green-100 text-green-800',
-      'CANCELLED': 'bg-red-100 text-red-800'
+      'CANCELLED': 'bg-primary-100 text-primary-800'
     }
     return colors[status] || 'bg-gray-100 text-gray-800'
   }
@@ -211,7 +211,7 @@ export default function MatchesManagement() {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gray-50">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-red-600 mx-auto"></div>
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600 mx-auto"></div>
           <p className="mt-4 text-gray-600">Cargando partidos...</p>
         </div>
       </div>
@@ -236,7 +236,7 @@ export default function MatchesManagement() {
               <span className="text-gray-700">Admin: {user?.name}</span>
               <button
                 onClick={logout}
-                className="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg transition-colors"
+                className="bg-primary-600 hover:bg-primary-700 text-white px-4 py-2 rounded-lg transition-colors"
               >
                 Cerrar Sesión
               </button>
@@ -255,7 +255,7 @@ export default function MatchesManagement() {
         )}
 
         {error && (
-          <div className="mb-6 bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded">
+          <div className="mb-6 bg-primary-100 border border-primary-400 text-primary-700 px-4 py-3 rounded">
             {error}
           </div>
         )}
@@ -274,7 +274,7 @@ export default function MatchesManagement() {
                   setSelectedLeague(e.target.value)
                   loadMatchesForLeague(e.target.value)
                 }}
-                className="border text-gray-900 border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-red-500 focus:border-red-500"
+                className="border text-gray-900 border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
               >
                 <option value="">Todas las ligas</option>
                 {leagues.map((league) => (

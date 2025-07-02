@@ -99,16 +99,16 @@ export default function PlayerStats({ userId }: PlayerStatsProps) {
   if (loading) {
     return (
       <div className="flex items-center justify-center p-8">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-red-600"></div>
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600"></div>
       </div>
     );
   }
 
   if (error) {
     return (
-      <div className="bg-red-50 border border-red-200 rounded-lg p-4">
-        <h3 className="text-red-800 font-semibold">Error</h3>
-        <p className="text-red-700">{error}</p>
+      <div className="bg-primary-50 border border-primary-200 rounded-lg p-4">
+        <h3 className="text-primary-800 font-semibold">Error</h3>
+        <p className="text-primary-700">{error}</p>
       </div>
     );
   }
@@ -143,7 +143,7 @@ export default function PlayerStats({ userId }: PlayerStatsProps) {
             </p>
           </div>
           <div className="text-right">
-            <p className="text-3xl font-bold text-red-600">{stats.overview.winRate.toFixed(1)}%</p>
+            <p className="text-3xl font-bold text-primary-600">{stats.overview.winRate.toFixed(1)}%</p>
             <p className="text-sm text-gray-600">Porcentaje de victorias</p>
           </div>
         </div>
@@ -306,7 +306,7 @@ export default function PlayerStats({ userId }: PlayerStatsProps) {
                     <span className={`px-1 sm:px-2 py-1 rounded-full text-xs font-semibold ${
                       match.result === 'win' 
                         ? 'bg-green-100 text-green-800' 
-                        : 'bg-red-100 text-red-800'
+                        : 'bg-primary-100 text-primary-800'
                     }`}>
                       <span className="hidden sm:inline">{match.result === 'win' ? 'Victoria' : 'Derrota'}</span>
                       <span className="sm:hidden">{match.result === 'win' ? 'V' : 'D'}</span>

@@ -183,7 +183,7 @@ export default function JoinLinksManagement() {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gray-50">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-red-600 mx-auto"></div>
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600 mx-auto"></div>
           <p className="mt-4 text-gray-600">Cargando enlaces...</p>
         </div>
       </div>
@@ -206,7 +206,7 @@ export default function JoinLinksManagement() {
               <span className="text-gray-700">Admin: {user?.name}</span>
               <button
                 onClick={logout}
-                className="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg transition-colors"
+                className="bg-primary-600 hover:bg-primary-700 text-white px-4 py-2 rounded-lg transition-colors"
               >
                 Cerrar Sesión
               </button>
@@ -221,7 +221,7 @@ export default function JoinLinksManagement() {
         <nav className="flex mb-6" aria-label="Breadcrumb">
           <ol className="inline-flex items-center space-x-1 md:space-x-3">
             <li className="inline-flex items-center">
-              <Link href="/admin" className="text-gray-700 hover:text-red-600 inline-flex items-center">
+              <Link href="/admin" className="text-gray-700 hover:text-primary-600 inline-flex items-center">
                 Panel Admin
               </Link>
             </li>
@@ -236,8 +236,8 @@ export default function JoinLinksManagement() {
 
         {/* Alerts */}
         {error && (
-          <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg">
-            <p className="text-red-600">{error}</p>
+          <div className="mb-6 p-4 bg-primary-50 border border-primary-200 rounded-lg">
+            <p className="text-primary-600">{error}</p>
           </div>
         )}
 
@@ -377,7 +377,7 @@ export default function JoinLinksManagement() {
                             <div className="flex items-center space-x-2 mb-2">
                               <h4 className="font-semibold text-gray-900">{link.league.name}</h4>
                               <span className={`px-2 py-1 text-xs rounded ${
-                                link.isActive ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'
+                                link.isActive ? 'bg-green-100 text-green-800' : 'bg-primary-100 text-primary-800'
                               }`}>
                                 {link.isActive ? 'Activo' : 'Inactivo'}
                               </span>

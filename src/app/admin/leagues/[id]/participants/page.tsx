@@ -158,7 +158,7 @@ export default function LeagueParticipants({ params }: PageProps) {
     const colors: Record<string, string> = {
       'PENDING': 'bg-yellow-100 text-yellow-800',
       'APPROVED': 'bg-green-100 text-green-800',
-      'REJECTED': 'bg-red-100 text-red-800',
+      'REJECTED': 'bg-primary-100 text-primary-800',
       'WITHDRAWN': 'bg-gray-100 text-gray-800'
     }
     return colors[status] || 'bg-gray-100 text-gray-800'
@@ -187,7 +187,7 @@ export default function LeagueParticipants({ params }: PageProps) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gray-50">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-red-600 mx-auto"></div>
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600 mx-auto"></div>
           <p className="mt-4 text-gray-600">Cargando participantes...</p>
         </div>
       </div>
@@ -210,7 +210,7 @@ export default function LeagueParticipants({ params }: PageProps) {
               <span className="text-gray-700">Admin: {user?.name}</span>
               <button
                 onClick={logout}
-                className="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg transition-colors"
+                className="bg-primary-600 hover:bg-primary-700 text-white px-4 py-2 rounded-lg transition-colors"
               >
                 Cerrar Sesion
               </button>
@@ -225,7 +225,7 @@ export default function LeagueParticipants({ params }: PageProps) {
         <nav className="flex mb-6" aria-label="Breadcrumb">
           <ol className="inline-flex items-center space-x-1 md:space-x-3">
             <li className="inline-flex items-center">
-              <Link href="/admin" className="text-gray-700 hover:text-red-600">
+              <Link href="/admin" className="text-gray-700 hover:text-primary-600">
                 Panel Admin
               </Link>
             </li>
@@ -246,8 +246,8 @@ export default function LeagueParticipants({ params }: PageProps) {
 
         {/* Alerts */}
         {error && (
-          <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg">
-            <p className="text-red-600">{error}</p>
+          <div className="mb-6 p-4 bg-primary-50 border border-primary-200 rounded-lg">
+            <p className="text-primary-600">{error}</p>
           </div>
         )}
 
@@ -291,8 +291,8 @@ export default function LeagueParticipants({ params }: PageProps) {
                 <div key={participant.id} className="p-6">
                   <div className="flex items-center justify-between">
                     <div className="flex items-center space-x-4">
-                      <div className="w-10 h-10 bg-red-100 rounded-full flex items-center justify-center">
-                        <span className="text-red-600 font-medium">
+                      <div className="w-10 h-10 bg-primary-100 rounded-full flex items-center justify-center">
+                        <span className="text-primary-600 font-medium">
                           {participant.user.name.charAt(0).toUpperCase()}
                         </span>
                       </div>
@@ -325,7 +325,7 @@ export default function LeagueParticipants({ params }: PageProps) {
                               const reason = prompt('Razon del rechazo (opcional):')
                               handleParticipantAction(participant.id, 'reject', reason || undefined)
                             }}
-                            className="bg-red-600 hover:bg-red-700 text-white px-3 py-1 rounded text-sm"
+                            className="bg-primary-600 hover:bg-primary-700 text-white px-3 py-1 rounded text-sm"
                           >
                             Rechazar
                           </button>

@@ -134,7 +134,7 @@ export function getInitials(name: string): string {
  */
 export function getAvatarColor(name: string): string {
   const colors = [
-    'bg-red-500',
+    'bg-primary-500',
     'bg-blue-500', 
     'bg-green-500',
     'bg-yellow-500',
@@ -216,7 +216,7 @@ export function getStatusColor(status: string, type: 'league' | 'match' | 'parti
       REGISTRATION: 'bg-blue-100 text-blue-800',
       ACTIVE: 'bg-green-100 text-green-800',
       FINISHED: 'bg-purple-100 text-purple-800',
-      CANCELLED: 'bg-red-100 text-red-800',
+      CANCELLED: 'bg-primary-100 text-primary-800',
     } as const;
     return colorMap[status as keyof typeof colorMap] || 'bg-gray-100 text-gray-800';
   }
@@ -226,7 +226,7 @@ export function getStatusColor(status: string, type: 'league' | 'match' | 'parti
       SCHEDULED: 'bg-blue-100 text-blue-800',
       IN_PROGRESS: 'bg-yellow-100 text-yellow-800',
       COMPLETED: 'bg-green-100 text-green-800',
-      CANCELLED: 'bg-red-100 text-red-800',
+      CANCELLED: 'bg-primary-100 text-primary-800',
       POSTPONED: 'bg-orange-100 text-orange-800',
     } as const;
     return colorMap[status as keyof typeof colorMap] || 'bg-gray-100 text-gray-800';
@@ -236,7 +236,7 @@ export function getStatusColor(status: string, type: 'league' | 'match' | 'parti
     const colorMap = {
       PENDING: 'bg-yellow-100 text-yellow-800',
       APPROVED: 'bg-green-100 text-green-800',
-      REJECTED: 'bg-red-100 text-red-800',
+      REJECTED: 'bg-primary-100 text-primary-800',
       WITHDRAWN: 'bg-gray-100 text-gray-800',
     } as const;
     return colorMap[status as keyof typeof colorMap] || 'bg-gray-100 text-gray-800';
