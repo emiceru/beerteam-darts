@@ -102,6 +102,22 @@ export default function AdminDashboard() {
 
       {/* Main Content */}
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        {/* Banner de Nueva Liga */}
+        <div className="bg-gradient-to-r from-primary-500 to-secondary-500 rounded-xl shadow-lg p-6 mb-8 text-white">
+          <div className="flex flex-col md:flex-row items-center justify-between">
+            <div className="text-center md:text-left mb-4 md:mb-0">
+              <h2 className="text-2xl font-bold mb-2">🚀 ¡Crea una Nueva Liga!</h2>
+              <p className="text-primary-100">Organiza tu próximo torneo de dardos de forma fácil y profesional</p>
+            </div>
+            <Link
+              href="/admin/leagues/create"
+              className="bg-white text-primary-600 hover:bg-primary-50 px-8 py-4 rounded-lg font-bold text-lg shadow-lg hover:shadow-xl transition-all duration-200 transform hover:scale-105 whitespace-nowrap"
+            >
+              ✨ Crear Liga Ahora
+            </Link>
+          </div>
+        </div>
+
         {/* Welcome Section */}
         <div className="bg-white rounded-lg shadow-sm p-6 mb-8">
           <h2 className="text-2xl font-bold text-gray-900 mb-2">
@@ -175,9 +191,9 @@ export default function AdminDashboard() {
                 <h3 className="text-lg font-semibold text-gray-900">Gestión de Ligas</h3>
                 <Link
                   href="/admin/leagues/create"
-                  className="bg-primary-600 hover:bg-primary-700 text-white px-4 py-2 rounded-lg text-sm transition-colors"
+                  className="bg-primary-600 hover:bg-primary-700 text-white px-6 py-3 rounded-lg font-semibold shadow-lg hover:shadow-xl transition-all duration-200 transform hover:scale-105"
                 >
-                  + Nueva Liga
+                  ✨ + Nueva Liga
                 </Link>
               </div>
               <div className="p-6">
@@ -240,13 +256,13 @@ export default function AdminDashboard() {
                               📊 Stats
                             </Link>
                             <Link
-                              href={`/admin/leagues/${league.slug}/edit`}
+                              href={`/admin/leagues/${league.id}/edit`}
                               className="text-blue-600 hover:text-blue-700 text-sm font-medium"
                             >
                               Editar
                             </Link>
                             <Link
-                              href={`/leagues/${league.slug}`}
+                              href={`/leagues/${league.id}`}
                               className="text-primary-600 hover:text-primary-700 text-sm font-medium"
                             >
                               Ver →
@@ -279,9 +295,9 @@ export default function AdminDashboard() {
               <div className="space-y-3">
                 <Link
                   href="/admin/leagues/create"
-                  className="block w-full bg-primary-600 hover:bg-primary-700 text-white text-center py-2 px-4 rounded-lg transition-colors"
+                  className="block w-full bg-primary-600 hover:bg-primary-700 text-white text-center py-3 px-4 rounded-lg font-semibold shadow-md hover:shadow-lg transition-all duration-200"
                 >
-                  Nueva Liga
+                  🎯 Nueva Liga
                 </Link>
                 <Link
                   href="/admin/join-links"

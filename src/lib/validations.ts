@@ -77,7 +77,7 @@ const leagueBaseSchema = z.object({
   tournamentFormat: z.enum(['ROUND_ROBIN', 'KNOCKOUT', 'HYBRID'], {
     errorMap: () => ({ message: 'Formato de torneo inválido' }),
   }),
-  maxParticipants: z.number().min(2, 'Mínimo 2 participantes').max(1000, 'Máximo 1000 participantes').optional(),
+  maxParticipants: z.number().min(2, 'Mínimo 2 participantes').max(1000, 'Máximo 1000 participantes').nullable().optional(),
   autoApproveRegistrations: z.boolean(),
   registrationStart: z.string(),
   registrationEnd: z.string(),

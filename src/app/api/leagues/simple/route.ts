@@ -60,7 +60,8 @@ export async function GET() {
 export async function POST(request: NextRequest) {
   try {
     // Verificar autenticación
-    const token = request.cookies.get('auth_token')?.value || 
+    const token = request.cookies.get('token')?.value || 
+                  request.cookies.get('auth_token')?.value || 
                   request.headers.get('authorization')?.replace('Bearer ', '')
 
     if (!token) {
