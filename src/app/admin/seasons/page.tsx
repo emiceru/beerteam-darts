@@ -17,7 +17,7 @@ interface Season {
 }
 
 export default function AdminSeasons() {
-  const [currentUser, setCurrentUser] = useState<any>(null)
+  const [, setCurrentUser] = useState<any>(null)
   const [seasons, setSeasons] = useState<Season[]>([])
   const [loading, setLoading] = useState(true)
   const [creating, setCreating] = useState(false)

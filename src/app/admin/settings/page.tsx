@@ -6,7 +6,7 @@ import Link from 'next/link'
 import Header from '@/components/header'
 
 export default function AdminSettings() {
-  const [currentUser, setCurrentUser] = useState<any>(null)
+  const [, setCurrentUser] = useState<any>(null)
   const [loading, setLoading] = useState(true)
   const router = useRouter()
 

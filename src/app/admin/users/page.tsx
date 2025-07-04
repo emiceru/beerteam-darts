@@ -17,7 +17,7 @@ interface User {
 }
 
 export default function AdminUsers() {
-  const [currentUser, setCurrentUser] = useState<any>(null)
+  const [, setCurrentUser] = useState<any>(null)
   const [users, setUsers] = useState<User[]>([])
   const [loading, setLoading] = useState(true)
   const router = useRouter()

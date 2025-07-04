@@ -79,7 +79,7 @@ export async function PUT(request: NextRequest) {
       return NextResponse.json({ error: 'Acceso denegado' }, { status: 403 })
     }
 
-    const body = await request.json()
+    await request.json() // body para futuras actualizaciones
     
     // Aquí podrías implementar la lógica para actualizar configuraciones
     // Por ahora solo retornamos éxito
