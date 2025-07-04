@@ -118,7 +118,7 @@ export default function CreateLeague() {
     const loadData = async () => {
       try {
         // Cargar temporadas
-        const seasonsResponse = await fetch('/api/seasons')
+        const seasonsResponse = await fetch('/api/admin/seasons')
         if (seasonsResponse.ok) {
           const seasonsData = await seasonsResponse.json()
           setSeasons(seasonsData.seasons || [])
@@ -189,7 +189,7 @@ export default function CreateLeague() {
       // Preparar datos para envio
       const submitData = {
         ...formData,
-        maxParticipants: formData.maxParticipants ? parseInt(formData.maxParticipants) : undefined,
+        maxParticipants: formData.maxParticipants && formData.maxParticipants.trim() !== '' ? parseInt(formData.maxParticipants) : null,
         pointsWin: parseInt(formData.pointsWin),
         pointsDraw: parseInt(formData.pointsDraw),
         pointsLoss: parseInt(formData.pointsLoss),
@@ -243,7 +243,7 @@ export default function CreateLeague() {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gray-50">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600 mx-auto"></div>
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-fuchsia-600 mx-auto"></div>
           <p className="mt-4 text-gray-600">Cargando formulario...</p>
         </div>
       </div>
@@ -266,7 +266,7 @@ export default function CreateLeague() {
               <span className="text-gray-700">Admin: {user?.name}</span>
               <button
                 onClick={logout}
-                className="bg-primary-600 hover:bg-primary-700 text-white px-4 py-2 rounded-lg transition-colors"
+                className="bg-fuchsia-600 hover:bg-fuchsia-700 text-white px-4 py-2 rounded-lg transition-colors"
               >
                 Cerrar Sesion
               </button>
@@ -281,7 +281,7 @@ export default function CreateLeague() {
         <nav className="flex mb-6" aria-label="Breadcrumb">
           <ol className="inline-flex items-center space-x-1 md:space-x-3">
             <li className="inline-flex items-center">
-              <Link href="/admin" className="text-gray-700 hover:text-primary-600 inline-flex items-center">
+              <Link href="/admin" className="text-gray-700 hover:text-fuchsia-600 inline-flex items-center">
                 Panel Admin
               </Link>
             </li>
@@ -296,8 +296,8 @@ export default function CreateLeague() {
 
         {/* Alerts */}
         {error && (
-          <div className="mb-6 p-4 bg-primary-50 border border-primary-200 rounded-lg">
-            <p className="text-primary-600">{error}</p>
+          <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg">
+            <p className="text-red-600">{error}</p>
           </div>
         )}
 
@@ -484,7 +484,7 @@ export default function CreateLeague() {
                       id="autoApproveRegistrations"
                       checked={formData.autoApproveRegistrations}
                       onChange={(e) => setFormData({ ...formData, autoApproveRegistrations: e.target.checked })}
-                      className="h-4 w-4 text-primary-600 focus:ring-primary-500 border-gray-300 rounded"
+                      className="h-4 w-4 text-fuchsia-600 focus:ring-fuchsia-500 border-gray-300 rounded"
                     />
                     <label htmlFor="autoApproveRegistrations" className="ml-2 block text-sm text-gray-700">
                       Auto-aprobar inscripciones (los jugadores se unen automaticamente sin requerir aprobacion manual)
@@ -617,7 +617,7 @@ export default function CreateLeague() {
                     id="trackDetailedScore"
                     checked={formData.trackDetailedScore}
                     onChange={(e) => setFormData({ ...formData, trackDetailedScore: e.target.checked })}
-                    className="h-4 w-4 text-primary-600 focus:ring-primary-500 border-gray-300 rounded"
+                    className="h-4 w-4 text-fuchsia-600 focus:ring-fuchsia-500 border-gray-300 rounded"
                   />
                   <label htmlFor="trackDetailedScore" className="ml-2 block text-sm text-gray-700">
                     Registrar puntuacion detallada por leg
@@ -630,7 +630,7 @@ export default function CreateLeague() {
                     id="trackGameByGame"
                     checked={formData.trackGameByGame}
                     onChange={(e) => setFormData({ ...formData, trackGameByGame: e.target.checked })}
-                    className="h-4 w-4 text-primary-600 focus:ring-primary-500 border-gray-300 rounded"
+                    className="h-4 w-4 text-fuchsia-600 focus:ring-fuchsia-500 border-gray-300 rounded"
                   />
                   <label htmlFor="trackGameByGame" className="ml-2 block text-sm text-gray-700">
                     Registrar resultados juego por juego
@@ -643,7 +643,7 @@ export default function CreateLeague() {
                     id="trackThrowCount"
                     checked={formData.trackThrowCount}
                     onChange={(e) => setFormData({ ...formData, trackThrowCount: e.target.checked })}
-                    className="h-4 w-4 text-primary-600 focus:ring-primary-500 border-gray-300 rounded"
+                    className="h-4 w-4 text-fuchsia-600 focus:ring-fuchsia-500 border-gray-300 rounded"
                   />
                   <label htmlFor="trackThrowCount" className="ml-2 block text-sm text-gray-700">
                     Contar numero de dardos lanzados
@@ -656,7 +656,7 @@ export default function CreateLeague() {
                     id="trackTime"
                     checked={formData.trackTime}
                     onChange={(e) => setFormData({ ...formData, trackTime: e.target.checked })}
-                    className="h-4 w-4 text-primary-600 focus:ring-primary-500 border-gray-300 rounded"
+                    className="h-4 w-4 text-fuchsia-600 focus:ring-fuchsia-500 border-gray-300 rounded"
                   />
                   <label htmlFor="trackTime" className="ml-2 block text-sm text-gray-700">
                     Registrar tiempo de duracion de partidos

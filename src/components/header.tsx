@@ -84,7 +84,7 @@ export default function Header({ title, subtitle }: HeaderProps) {
       ]
 
   return (
-    <header className="bg-gradient-to-r from-primary-600 to-primary-700 shadow-lg">
+    <header className="bg-gradient-to-r from-fuchsia-600 to-pink-600 shadow-lg">
       {/* Header fucsia Beer Team */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center py-4">
@@ -96,7 +96,7 @@ export default function Header({ title, subtitle }: HeaderProps) {
                 <h1 className="text-lg font-bold text-white">
                   {title || 'Beer Team'}
                 </h1>
-                <p className="text-xs text-primary-100">
+                <p className="text-xs text-fuchsia-100">
                   {subtitle || 'Liga de Dardos'}
                 </p>
               </div>
@@ -111,8 +111,8 @@ export default function Header({ title, subtitle }: HeaderProps) {
                 href={item.href}
                 className={`flex items-center space-x-2 px-3 py-2 rounded-md text-sm font-medium transition-colors ${
                   isActive(item.href)
-                    ? 'bg-primary-800 text-white'
-                    : 'text-primary-100 hover:text-white hover:bg-primary-800'
+                    ? 'bg-fuchsia-800 text-white'
+                    : 'text-fuchsia-100 hover:text-white hover:bg-fuchsia-800'
                 }`}
               >
                 <span>{item.icon}</span>
@@ -129,13 +129,13 @@ export default function Header({ title, subtitle }: HeaderProps) {
               <div className="relative">
                 <button
                   onClick={() => setUserMenuOpen(!userMenuOpen)}
-                  className="flex items-center space-x-3 bg-primary-800 hover:bg-primary-900 text-white px-4 py-2 rounded-lg transition-colors"
+                  className="flex items-center space-x-3 bg-fuchsia-800 hover:bg-fuchsia-900 text-white px-4 py-2 rounded-lg transition-colors"
                 >
                   <div className="text-left hidden sm:block">
                     <p className="text-sm font-medium">
                       {user.role === 'ADMIN' ? 'Administrador' : 'Jugador'}
                     </p>
-                    <p className="text-xs text-primary-200 truncate max-w-32">
+                    <p className="text-xs text-fuchsia-200 truncate max-w-32">
                       {user.name}
                     </p>
                   </div>
@@ -170,13 +170,13 @@ export default function Header({ title, subtitle }: HeaderProps) {
               <div className="flex items-center space-x-3">
                 <Link
                   href="/login"
-                  className="text-primary-100 hover:text-white text-sm font-medium transition-colors"
+                  className="text-fuchsia-100 hover:text-white text-sm font-medium transition-colors"
                 >
                   Iniciar Sesión
                 </Link>
                 <Link
                   href="/register"
-                  className="bg-white text-primary-600 hover:bg-primary-50 px-4 py-2 rounded-lg text-sm font-medium transition-colors"
+                  className="bg-white text-fuchsia-600 hover:bg-fuchsia-50 px-4 py-2 rounded-lg text-sm font-medium transition-colors"
                 >
                   Registrarse
                 </Link>
@@ -186,7 +186,7 @@ export default function Header({ title, subtitle }: HeaderProps) {
             {/* Menú móvil toggle */}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="md:hidden text-white hover:text-primary-200 transition-colors"
+              className="md:hidden text-white hover:text-fuchsia-200 transition-colors"
             >
               {mobileMenuOpen ? (
                 <XMarkIcon className="h-6 w-6" />
@@ -199,7 +199,7 @@ export default function Header({ title, subtitle }: HeaderProps) {
 
         {/* Menú móvil */}
         {mobileMenuOpen && (
-          <div className="md:hidden bg-primary-800 rounded-lg mt-2 mb-4">
+          <div className="md:hidden bg-fuchsia-800 rounded-lg mt-2 mb-4">
             <div className="px-4 py-3 space-y-2">
               {navigationItems.map((item) => (
                 <Link
@@ -208,8 +208,8 @@ export default function Header({ title, subtitle }: HeaderProps) {
                   onClick={() => setMobileMenuOpen(false)}
                   className={`flex items-center space-x-3 px-3 py-2 rounded-md text-sm font-medium transition-colors ${
                     isActive(item.href)
-                      ? 'bg-primary-900 text-white'
-                      : 'text-primary-100 hover:text-white hover:bg-primary-900'
+                      ? 'bg-fuchsia-900 text-white'
+                      : 'text-fuchsia-100 hover:text-white hover:bg-fuchsia-900'
                   }`}
                 >
                   <span>{item.icon}</span>
@@ -219,8 +219,8 @@ export default function Header({ title, subtitle }: HeaderProps) {
 
               {isLoggedIn && user && (
                 <>
-                  <hr className="border-primary-700 my-3" />
-                  <div className="text-primary-200 text-xs px-3 mb-2">
+                  <hr className="border-fuchsia-700 my-3" />
+                  <div className="text-fuchsia-200 text-xs px-3 mb-2">
                     {user.role === 'ADMIN' ? 'Panel de Administrador' : 'Panel de Usuario'}
                   </div>
                   {userNavigationItems.map((item) => (
@@ -228,7 +228,7 @@ export default function Header({ title, subtitle }: HeaderProps) {
                       key={item.name}
                       href={item.href}
                       onClick={() => setMobileMenuOpen(false)}
-                      className="flex items-center space-x-3 px-3 py-2 rounded-md text-sm font-medium text-primary-100 hover:text-white hover:bg-primary-900 transition-colors"
+                      className="flex items-center space-x-3 px-3 py-2 rounded-md text-sm font-medium text-fuchsia-100 hover:text-white hover:bg-fuchsia-900 transition-colors"
                     >
                       <span>{item.icon}</span>
                       <span>{item.name}</span>
