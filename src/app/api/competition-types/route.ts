@@ -10,17 +10,9 @@ export async function GET() {
         name: true,
         slug: true,
         description: true,
-        rulesDescription: true,
-        defaultScoringConfig: true,
-        isActive: true,
-        createdAt: true,
+        rulesDescription: true
       },
-      where: {
-        isActive: true
-      },
-      orderBy: {
-        name: 'asc'
-      }
+      orderBy: { name: 'asc' }
     })
 
     return NextResponse.json({

@@ -80,12 +80,21 @@ export async function POST(request: NextRequest) {
     }
 
     const body = await request.json()
+    console.log('📝 Datos recibidos para crear liga:', JSON.stringify(body, null, 2))
     
     // Validar con el schema completo
     const validation = createLeagueSchema.safeParse(body)
     if (!validation.success) {
+      console.error('❌ Error de validación:', {
+        errors: validation.error.errors,
+        receivedData: body
+      })
       return NextResponse.json(
-        { error: 'Datos inválidos', details: validation.error.errors },
+        { 
+          error: 'Datos inválidos', 
+          details: validation.error.errors,
+          receivedFields: Object.keys(body)
+        },
         { status: 400 }
       )
     }

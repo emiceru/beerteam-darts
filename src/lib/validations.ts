@@ -66,27 +66,27 @@ export const notificationSettingsSchema = z.object({
 // Ligas - Schema base
 const leagueBaseSchema = z.object({
   name: z.string().min(3, 'El nombre debe tener al menos 3 caracteres').max(100, 'El nombre es demasiado largo'),
-  description: z.string().max(500, 'La descripción es demasiado larga').optional(),
+  description: z.string().max(500, 'La descripción es demasiado larga').optional().transform(val => val === '' ? undefined : val),
   rulesDescription: z.string().min(10, 'Describe las reglas de la liga').max(5000, 'La descripción de reglas es demasiado larga'),
   competitionTypeId: z.string().min(1, 'Tipo de competición requerido'),
-  seasonId: z.string().nullable().optional(),
-  newSeasonName: z.string().min(3, 'El nombre de la temporada debe tener al menos 3 caracteres').max(100, 'El nombre es demasiado largo').optional(),
+  seasonId: z.string().nullable().optional().transform(val => val === '' ? null : val),
+  newSeasonName: z.string().min(3, 'El nombre de la temporada debe tener al menos 3 caracteres').max(100, 'El nombre es demasiado largo').optional().transform(val => val === '' ? undefined : val),
   gameMode: z.enum(['INDIVIDUAL', 'PAIRS', 'MIXED'], {
     errorMap: () => ({ message: 'Modalidad de juego inválida' }),
   }),
   tournamentFormat: z.enum(['ROUND_ROBIN', 'KNOCKOUT', 'HYBRID'], {
     errorMap: () => ({ message: 'Formato de torneo inválido' }),
   }),
-  maxParticipants: z.number().min(2, 'Mínimo 2 participantes').max(1000, 'Máximo 1000 participantes').nullable().optional(),
+  maxParticipants: z.coerce.number().min(2, 'Mínimo 2 participantes').max(1000, 'Máximo 1000 participantes').nullable().optional(),
   autoApproveRegistrations: z.boolean(),
   registrationStart: z.string(),
   registrationEnd: z.string(),
   leagueStart: z.string(),
   leagueEnd: z.string(),
   // Configuración de puntuación
-  pointsWin: z.number().min(0, 'Los puntos deben ser positivos'),
-  pointsDraw: z.number().min(0, 'Los puntos deben ser positivos'),
-  pointsLoss: z.number().min(0, 'Los puntos deben ser positivos'),
+  pointsWin: z.coerce.number().min(0, 'Los puntos deben ser positivos'),
+  pointsDraw: z.coerce.number().min(0, 'Los puntos deben ser positivos'),
+  pointsLoss: z.coerce.number().min(0, 'Los puntos deben ser positivos'),
   // Configuración de datos de partido
   trackDetailedScore: z.boolean(),
   trackGameByGame: z.boolean(),
